@@ -1,0 +1,104 @@
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; font-family: "微软雅黑"; text-decoration: none; color: #000; }
+
+body { min-width: 1200px}
+ /*html{background: #f7f7f7}*/
+.main_color { background: #f7f7f7}
+
+a:hover { text-decoration: none }
+
+input { outline: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+body { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+/*body { background-color: #333; }*/
+
+.header_style{position: fixed;z-index: 1; top:0; left: 0; right: 0;  height: 70px;background: #003366 url(../img/wrapper-top-bg.png) no-repeat top center }
+
+/*.nav-left p{ font-size: 35px;font-family:LiSu; color: #ebebeb }*/
+
+.nav-left p{ font-size: 35px;font-family:LiSu; color: #ebebeb; padding-top: 10px; padding-left: 20px; }
+
+.nav-mid{margin-top: 15px; font-size: 16px}
+
+.nav-mid li a{color:#ebebeb }
+
+.nav-mid li a:hover{color: #416c95}
+
+.nav-right{margin-top: 25px}
+
+.nav-right a i{color:#ebebeb}
+
+.nav-right a span{color:#ebebeb}
+
+.nav-right a:hover{text-decoration: none}
+
+.footer_style{ height: 50px;background: #37587a;width:100%}
+
+.foot_text{padding-top: 8px; text-align: center}
+
+.foot_text p{ margin-bottom: 3px; font-size: 13px;color: #ebebeb}
+
+.reg_div {  margin-top: 100px;  width:100%}
+
+.title { padding: 0px 0px 30px 60px; font-size: 35px}
+
+/*.reg_ul { width: 100%}*/
+
+.reg_ul li { margin: auto; overflow: hidden;  margin-top: 20px; margin-bottom: 8px; }
+
+.reg_ul li span { color: #000;  float: left; width: 100px; text-align: right; display: inline-block; margin: auto;  margin-top: 10px; }
+
+.hint{color:#8699a4; margin-left: 120px;font-size: 12px}
+
+.reg_ul li span.tip { margin: 6px 0 0 10px; width: 40px; text-align: left; }
+
+.reg_ul li input { float: left; width: 380px; height: 30px; border: 1px solid #737373; border-radius: 3px; padding-left: 20px; outline: medium; margin-left: 10px; }
+
+/*.reg_ul li label input{}*/
+
+.reg_ul li select{ float: left; width: 380px; height: 30px; border: 1px solid #737373; border-radius: 3px; padding-left: 20px; outline: medium; margin-left: 10px; }
+
+.reg_ul li button { margin: auto; color: #ffffff; background-color: #333; font-size: 16px; padding: 10px 60px; outline: inherit; border-radius: 3px; cursor: pointer; margin-top: 10px; }
+
+
+.reg-box .contact_box{  text-align: center}
+.reg_box2{text-align: center}
+.reg_div2{ margin:130px auto 80px auto; padding: 30px; height: 100%; width:600px; border: 1px solid #404040;border-radius:10px;}
+
+/*.reg_div2{ margin-top:130px; margin-bottom: 80px; margin-left: auto; margin-right: auto; padding: 30px; width:600px; border: 1px solid #404040;border-radius:10px;}*/
+
+/*margin:150px auto;*/
+.f-ml5{margin-left:5px;}
+.reg-box .btn-blue,.reg_box2 .btn-blue{ font-size:18px; height:44px; line-height:44px; padding:0; width:160px;}
+.btn-blue{ background-color: #4b849c;border-color: #4b849c;color:#fff;}
+.btn-blue:hover,.btn-blue:active:hover{background-color: #37587a;border-color: #37587a;color:#fff;}
+.btn_position{ margin-right: 90px}
+/*.reg_position{margin-right: 200px}*/
+.f-r3{ border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
+.m-sPopCon{ position:fixed;z-index:999;-moz-border-radius:2px;-webkit-border-radius:2px;-ms-border-radius:2px;-o-border-radius:2px;border-radius:2px;display:none;}
+.m-sPopCon{min-width:420px;min-height:200px;max-width:800px;background: #ffffff;top:50%;left:50%}
+.regcon {width: 482px;height:360px;margin-left: -241px;margin-top: -180px;background: #f7f7f7;border: 1px solid #B2B2B2}
+.regcon pre {border: 1px solid #B2B2B2;height: 240px;margin-left: 15px;margin-top: 20px;overflow-x: hidden;overflow-y: scroll;padding: 5px;resize: both;width: 450px;background: #fff;font-size: 12px;color: #333;line-height: 1.7em;}
+.m-sPopTitle{ height:60px; line-height:60px; text-align:center; color:#fff; font-size:18px; background: #4b849c;}
+.m-sPopTitle strong{color: #fff}
+.m-sPopContent p{margin-top: -30px; margin-bottom: -40px}
+.m-sPopClose{ position:absolute; right:35px; font-size:24px; color:#fff; cursor:pointer;}
+.m-sPopClose:hover{ opacity:.5; filter:alpha(opacity=50);}
+
+
+
+
+
+
