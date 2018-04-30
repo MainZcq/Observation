@@ -54,11 +54,6 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
         <dependency>
-            <groupId>com.vaadin.external.google</groupId>
-            <artifactId>android-json</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-		<dependency>
 			<groupId>com.vaadin.external.google</groupId>
 			<artifactId>android-json</artifactId>
 			<version>RELEASE</version>

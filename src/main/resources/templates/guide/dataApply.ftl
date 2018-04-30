@@ -252,57 +252,7 @@
                                     <th style="width: 15%">云量(%)</th>
                                 </tr>
                                 </thead>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="select" value="select" class="select_choose">
-                                    </td>
-                                    <td>GF4</td>
-                                    <td>PMI</td>
-                                    <td>2018-03-31</td>
-                                    <td>50</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="select" value="select"  class="select_choose">
-                                    </td>
-                                    <td>GF4</td>
-                                    <td>PMI</td>
-                                    <td>2018-03-31</td>
-                                    <td>50</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="select" value="select" class="select_choose">
-                                    </td>
-                                    <td>GF4</td>
-                                    <td>PMI</td>
-                                    <td>2018-03-31</td>
-                                    <td>50</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="select" value="select"  class="select_choose">
-                                    </td>
-                                    <td>GF4</td>
-                                    <td>PMI</td>
-                                    <td>2018-03-31</td>
-                                    <td>50</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="select" value="select"  class="select_choose">
-                                    </td>
-                                    <td>GF4</td>
-                                    <td>PMI</td>
-                                    <td>2018-03-31</td>
-                                    <td>50</td>
-                                    <td>10</td>
-                                </tr>
-
+                                <tbody id="TbData"></tbody>
                             </table>
                             <!--</div>-->
                         </div>
@@ -446,7 +396,22 @@
             dataType: 'JSON',
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
             success : function(data) {
-                alert(data.productID);
+                alert(data[0].productID);
+                var html="";
+                for(var i= 0;i < data.length;i++) {
+                    html += "<tr>",
+                    html +="<td>" +
+                      "<input type=\"checkbox\" name=\"select\" value=\"select\"  class=\"select_choose\">"
+                    +"</td>";
+                    html += "</td>",
+                    html += "<td>" + data[i].satelliteID + "</td>";
+                    html += "<td>" + data[i].sensorID + "</td>";
+                    html += "<td>" + data[i].produceTime + "</td>";
+                    html += "<td>" + data[i].nominalResolution + "</td>";
+                    html += "<td>" + data[i].cloudPercent + "</td>";
+                    html += "</td>"
+                }
+                $("#TbData").html(html);
             },
             error : function(data) {
                 alert("查询错误");

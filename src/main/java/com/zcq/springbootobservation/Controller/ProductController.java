@@ -153,7 +153,7 @@ public class ProductController {
         AllType test=new AllType();
 
         test.setCloudPercent(null);
-        test.setNominalResolution("2.36");
+        test.setNominalResolution(null);
         test.setSensorID("SAR");
         test.setSatelliteID("GF3");
         test.setLevel("1");
