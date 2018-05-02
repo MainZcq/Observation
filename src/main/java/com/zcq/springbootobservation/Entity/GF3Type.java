@@ -2,7 +2,32 @@ package com.zcq.springbootobservation.Entity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+
+/**
+ * 代码学习自: https://examples.javacodegeeks.com/core-java/xml/bind/jaxb-unmarshal-example/
+ *
+ * 样例xml
+ * <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+ * <product>
+ *     <segmentID>188619</segmentID>
+ *     <sceneID>4845210</sceneID>
+ *     <sensor>
+ *         <sensorID>SAR</sensorID>
+ *         <imagingMode>FSII</imagingMode>
+ *  ...
+ *
+ *
+ * 解析后的数据结构:
+ *
+ * GF3Type:
+ *   segmentID,
+ *   sceneID,
+ *   sensor: {sensorID, imagingMode}
+ *
+ */
+
+
 
 @XmlRootElement( name = "product" )
 public class GF3Type {
@@ -14,6 +39,9 @@ public class GF3Type {
     public GF3Type() {
     }
 
+    /**
+     * 内部类, 使用jaxb时必须使用static
+     */
     @XmlRootElement( name = "sensor" )
     private static class Sensor {
         private String sensorID;
