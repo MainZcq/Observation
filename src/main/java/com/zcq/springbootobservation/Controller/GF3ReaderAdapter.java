@@ -2,26 +2,22 @@ package com.zcq.springbootobservation.Controller;
 
 import com.zcq.springbootobservation.Entity.AllType;
 import com.zcq.springbootobservation.Entity.GF3Type;
-import com.zcq.springbootobservation.Entity.ReaderAdapter;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import com.zcq.springbootobservation.Service.ProductService;
+import com.zcq.springbootobservation.Service.ReaderAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-
-import static org.springframework.util.xml.DomUtils.getTextValue;
 
 public class GF3ReaderAdapter implements ReaderAdapter  {
 
+    @Autowired
+    private ProductService productService;
     @Override
     public AllType fileReader(String fileName) {
 
-        AllType t = new AllType();
+        AllType allType = new AllType();
 
         try {
             File fXmlFile = new File(fileName);
@@ -30,34 +26,22 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
             Unmarshaller jaxbUnmarshal = jaxbContext.createUnmarshaller();
             GF3Type gf3 = (GF3Type)jaxbUnmarshal.unmarshal(fXmlFile);
 
+            allType.setProductID(gf3.getProductID());
+            allType.setSatelliteID(gf3.getSatellite());
+            allType.setSensorID(gf3.getSensorID());
+            allType.setSceneID(gf3.getSceneID());
+            allType.setLevel(gf3.getProductLevel());
+            allType.setNominalResolution(gf3.getNominalResolution());
+            allType.setImagingMode(gf3.getImagingMode());
+            allType.setProduceTime(gf3.getProductGentime());
+            allType.setCloudPercent("0");
+            allType.setLeftTopLat(gf3.getTopLeftLat());
+            allType.setLeftTopLng(gf3.getTopLeftLng());
+            allType.setRightBottomLat(gf3.getBottomRightLat());
+            allType.setRightBottomLng(gf3.getBottomRightLng());
 
-            System.out.println(gf3.getSegmentID());
-            System.out.println(gf3.getSensorID());
+            System.out.println("productID: "+gf3.getProductID());
 
-//
-//            DocumentBuilderFactory dbFactory = DocumentBuilderFactory
-//                    .newInstance();
-//            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-//            Document doc = dBuilder.parse(fXmlFile);
-//
-//            doc.getDocumentElement().normalize();
-//
-//            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-////            doc.getDocumentElement().getChildNodes().item(0).getFirstChild().getChildNodes().item(0).getAttributes().getNamedItem("data").getNodeValue());
-//
-//            Element rProduct = (Element) doc.getDocumentElement();
-//
-//            Node segmentID = doc.getDocumentElement().getElementsByTagName("segmentID").item(0); //.getChildNodes();
-//            Node satellite = doc.getDocumentElement().getElementsByTagName("satellite").item(0); //.getChildNodes();
-//            Node sensor = doc.getDocumentElement().getElementsByTagName("sensor").item(0); //.getChildNodes();
-//            Node productID = doc.getDocumentElement().getElementsByTagName("productID").item(0); //.getChildNodes();
-//            Node sceneID = doc.getDocumentElement().getElementsByTagName("sceneID").item(0); //.getChildNodes();
-//            System.out.println("segmentID: " + segmentID.getFirstChild().getNodeValue());
-//            System.out.println("satellite: " + satellite.getFirstChild().getNodeValue());
-//            System.out.println("productId: " + productID.getFirstChild().getNodeValue());
-//            System.out.println("sceneId: " + sceneID.getFirstChild().getNodeValue());
-//
-//            System.out.println("sensorId: " + sensor.getFirstChild().getNextSibling().getNodeValue());
 
 
         } catch (Exception e) {
@@ -65,8 +49,7 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
         }
 
 
-
-        return t;
+        return allType;
     }
 
 

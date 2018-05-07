@@ -97,15 +97,24 @@
                             <div class="part2" style="display: none">
                                 <div class="mod1">
                                     <label>省/市/自治区：</label>
-                                    <select id="cmbProvince" name="cmbProvince" class="input2"></select>
+                                    <select id="province" name="province" onchange="doProvAndCityRelation();" class="input2">　　　　　　　
+                                        <option id="choosePro"value="-1">请选择省份</option>　　　　　
+                                    </select>
+                                    <!--<select id="cmbProvince" name="cmbProvince" class="input2"></select>-->
                                 </div>
                                 <div class="mod1">
                                     <label>地级市/区：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                    <select id="cmbCity" name="cmbCity" class="input2"></select>
+                                    <!--<select id="cmbCity" name="cmbCity" class="input2"></select>-->
+                                    <select id="citys" name="city" onchange="doCityAndCountyRelation();" class="input2">　　　　　　　　
+                                        <option id='chooseCity' value='-1'>请选择城市</option>　　　　　　
+                                    </select>
                                 </div>
                                 <div class="mod1">
                                     <label>县级市/县/区：</label>
-                                    <select id="cmbArea" name="cmbArea" class="input2"></select>
+                                    <!--<select id="cmbArea" name="cmbArea" class="input2"></select>-->
+                                    <select id="county" name="county" onchange="doCounty();" class="input2">　　　　　　　
+                                        <option id='chooseCounty' value='-1'>请选择区/县</option>　　　　　
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -142,10 +151,7 @@
 
                         <div class="box3">
                             <p class="box3_p">传感器选择：</p>
-                            <div class="mod1">
-                                <b class="box3_b">Aqua：&nbsp;&nbsp;</b>
-                                <input type="checkbox" name="Aqua" id="MODIS" value="MODIS"><span>MODIS</span>
-                            </div>
+
                             <div class="mod1">
                                 <b class="box3_b">GF1：&nbsp;&nbsp;&nbsp;&nbsp;</b>
                                 <input type="checkbox" name="GF1" value="PMS1"><span>PMS1</span>
@@ -175,7 +181,7 @@
                                 <input type="checkbox" name="GF4" value="PMS" ><span>PMS</span>
                             </div>
 
-                            <div class="mod1">
+                           <#-- <div class="mod1">
                                 <b class="box3_b">HJ1A：&nbsp;&nbsp;</b>
                                 <input type="checkbox" name="HJ1A" value="CCD1" ><span>CCD1</span>
                                 <input type="checkbox" name="HJ1A" value="CCD2" ><span>CCD2</span>
@@ -199,11 +205,11 @@
                                 <input type="checkbox" name="ZY3" value="MUX" ><span>MUX</span>
                                 <input type="checkbox" name="ZY3" value="NAD" ><span>NAD</span>
                                 <input type="checkbox" name="ZY3" value="TLC" ><span>TLC</span>
-                            </div>
+                            </div>-->
 
                         </div>
 
-                        <button type="submit" class="btn btn-success submit_btn" id="findProduct" onclick="search()">产品查询</button>
+                        <button type="submit" class="btn btn-success submit_btn" id="findProduct" >产品查询</button>
 
                     </div>
                 </div>
@@ -220,46 +226,37 @@
                 <div id="collapse2" class="panel-collapse collapse in">
                     <div class="panel-body" style="height: 800px">
 
-                        <div class="box4">
-                            <div class="mod1">
-                                <label>排序方式：</label>
 
-                                <select id="result_sort" class="input2">
-                                    <option value="satellite" selected>卫星</option>
-                                    <option value="collect_time">采集时间</option>
-                                </select>
+                        <form  id="form2" name="form2" action="/shoppingCart" onSubmit="return SendFormSubmit()">
+                            <button type="submit" class="btn btn-success submit_btn2" id="submitOrder">加入购物车</button>
+
+                            <div class="box6">
+                                <!--<div class="mod1">-->
+                                <table class="bordered" id="result_list">
+                                    <thead id="thead1">
+                                    <tr>
+                                        <th style="width: 10%">
+                                            <input type="checkbox" name="select_all" value="select_all" id="select_all">
+                                        </th>
+                                        <!--<a href="#" onclick="$.sortTable.sort('result_list',0)"><th style="width: 15%">卫星</th></a>-->
+                                        <th style="width: 15%" onclick="$.sortTable.sort('result_list',1)">卫星</th>
+                                        <th style="width: 15%" onclick="$.sortTable.sort('result_list',2)">传感器</th>
+                                        <th style="width: 25%" onclick="$.sortTable.sort('result_list',3)">采集时间</th>
+                                        <th style="width: 20%" onclick="$.sortTable.sort('result_list',4)">分辨率(m)</th>
+                                        <th style="width: 15%" onclick="$.sortTable.sort('result_list',5)">云量(%)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="TbData"></tbody>
+                                </table>
+                                <!--</div>-->
                             </div>
-                        </div>
+                        </form>
 
-                        <!--<div class="box5">-->
-                        <!--<div class="mod1">-->
-                        <!--<div id="pageDiv"></div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-                        <div class="box6">
-                            <!--<div class="mod1">-->
-                            <table class="bordered">
-                                <thead>
-                                <tr>
-                                    <th style="width: 10%">
-                                        <input type="checkbox" name="select_all" value="select_all" id="select_all">
-                                    </th>
-                                    <th style="width: 15%">卫星</th>
-                                    <th style="width: 15%">传感器</th>
-                                    <th  style="width: 25%">采集时间</th>
-                                    <th style="width: 20%">分辨率(m)</th>
-                                    <th style="width: 15%">云量(%)</th>
-                                </tr>
-                                </thead>
-                                <tbody id="TbData"></tbody>
-                            </table>
-                            <!--</div>-->
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!--<div style="height: 300px; margin-top: 100px;">-->
     <!--<select id="cmbProvince" name="cmbProvince"></select>-->
@@ -297,137 +294,13 @@
         }
 
     });
-    function search() {
-
-        var leftTopLng = $("#leftTopLng").val();
-        var leftTopLat = $("#leftTopLat").val();
-        var rightBottomLng = $("#rightBottomLng").val();
-        var rightBottomLat = $("#rightBottomLat").val();
-        var nominalResolution=$("#nominalResolution").val();
-        var cloudPercent=$("#cloudPercent").val();
-        var level=$("#product_level").val();
-
-        var time1=$("#time1").val();
-        var time2=$("#time2").val();
-        var chk_value1 =[];//定义一个数组
-        $('input[name="GF1"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value1.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-        var chk_value2 =[];//定义一个数组
-        $('input[name="GF2"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value2.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value3 =[];//定义一个数组
-        $('input[name="GF3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value3.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value4 =[];//定义一个数组
-        $('input[name="GF4"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value4.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value5 =[];//定义一个数组
-        $('input[name="HJ1A"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value5.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value6 =[];//定义一个数组
-        $('input[name="HJ1B"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value6.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value7 =[];//定义一个数组
-        $('input[name="Terra"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value7.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value8 =[];//定义一个数组
-        $('input[name="ZY3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value8.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-
-        var chk_value9 =[];//定义一个数组
-        $('input[name="Aqua"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-            chk_value9.push($(this).val());//将选中的值添加到数组chk_value中
-        });
-
-        var sensor={
-            'GF1':chk_value1,
-            'GF2':chk_value2,
-            'GF3':chk_value3,
-            'GF4':chk_value4,
-            'HJ1A':chk_value5,
-            'HJ1B':chk_value6,
-            'Terra':chk_value7,
-            'ZY3':chk_value8,
-            'Aqua':chk_value9,
-        }
-
-        var temp = {
-            'leftTopLng':leftTopLng,
-            'leftTopLat':leftTopLat,
-            'rightBottomLng':rightBottomLng,
-            'rightBottomLat':rightBottomLat,
-            'nominalResolution':nominalResolution,
-            'cloudPercent':cloudPercent,
-            'level':level,
-            'produceTime':time1+";"+time2,
-            'satelliteID': "GF3",
-            'sensorID': JSON.stringify(sensor),
-        };
-
-
-
-
-        $.ajax({
-            url:"/product/search",
-            type:'POST',
-            data: temp,
-            dataType: 'JSON',
-            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-            success : function(data) {
-                alert(data[0].productID);
-                var html="";
-                for(var i= 0;i < data.length;i++) {
-                    html += "<tr>",
-                    html +="<td>" +
-                      "<input type=\"checkbox\" name=\"select\" value=\"select\"  class=\"select_choose\">"
-                    +"</td>";
-                    html += "</td>",
-                    html += "<td>" + data[i].satelliteID + "</td>";
-                    html += "<td>" + data[i].sensorID + "</td>";
-                    html += "<td>" + data[i].produceTime + "</td>";
-                    html += "<td>" + data[i].nominalResolution + "</td>";
-                    html += "<td>" + data[i].cloudPercent + "</td>";
-                    html += "</td>"
-                }
-                $("#TbData").html(html);
-            },
-            error : function(data) {
-                alert("查询错误");
-
-            }
-
-        });
-
-    }
 
 </script>
 <!-- Holder.js for project development only -->
 <script src="js/vendor/holder.js"></script>
 <script type="text/javascript" src="js/apply.js"></script>
 <script type="text/javascript">
-    addressInit('cmbProvince', 'cmbCity', 'cmbArea');
+
 </script>
 <!-- Essential Plugins and Main JavaScript File -->
 <script src="js/plugins.js"></script>

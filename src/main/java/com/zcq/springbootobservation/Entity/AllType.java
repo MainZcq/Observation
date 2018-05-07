@@ -7,6 +7,7 @@ public class AllType {
     private String satelliteID;
     //传感器编号
     private String sensorID;
+    private String sceneID;
     //采集时间
     private String produceTime;
     private String level;
@@ -141,5 +142,13 @@ public class AllType {
 
     public void setRightBottomLat(String rightBottomLat) {
         this.rightBottomLat = rightBottomLat;
+    }
+
+    public String getSceneID() {
+        return sceneID;
+    }
+
+    public void setSceneID(String sceneID) {
+        this.sceneID = sceneID;
     }
 }

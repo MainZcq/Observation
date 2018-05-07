@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>购物车</title>
+    <title>确认订单信息</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Main Style Sheet -->
@@ -55,40 +55,47 @@
     </div>
 </header>
 <main role="main">
-
-
-    <div class="shopping_cart_mod1">
-        <div class="blank3">
-            <div class="btn1">
-                <form  id="form3" name="form3" action="/ordernfo" oInSubmit="return SendFormCart()">
-                    <button type="submit" class="btn btn-success collapse_btn" id="generate_order">生成订单</button>
-                </form>
-            </div>
-            <div class="btn2">
-                <!--<form class="btn2" id="form4" name="form4" onSubmit="return SendFormCart2()">-->
-                <button type="submit" class="btn btn-danger collapse_btn btn2"  id="delete_product" style="margin-left: 20px" onclick="SendFormCart2()">删除</button>
-                <!--</form>-->
-            </div>
-        </div>
-    </div>
-
-    <div class="shopping_cart_mod2">
-        <table class="bordered" id="shop_cart">
+    <div class="order_info_mod1">
+        <!--<div class="form_div">-->
+        <h2 style="margin-bottom: 30px;margin-left:65px">订单详情</h2>
+        <!--</div>-->
+        <table class="bordered" id="order_info">
             <thead>
             <tr>
-                <th style="width: 5%">
-                    <input type="checkbox" name="select_all2" value="select_all2" id="select_all2">
-                </th>
                 <th style="width: 15%">产品号</th>
                 <th style="width: 15%">卫星</th>
                 <th style="width: 15%">传感器</th>
                 <th style="width: 15%">景序列号</th>
                 <th style="width: 15%">产品级别</th>
-                <th style="width: 20%">采集时间</th>
+                <th style="width: 25%">采集时间</th>
             </tr>
             </thead>
         </table>
     </div>
+
+    <div class="order_info_mod2">
+        <form  id="form4" name="form4" action="order.html" onSubmit="return SendFormOrder()">
+            <div class="form_div">
+                <h3>填写订单信息</h3>
+            </div>
+
+            <ul class="ul_style">
+                <li>
+                    <span>订单名称：</span>
+                    <input type="text" name="order_name" value="" id="order_name" style="width: 450px">
+                </li>
+                <li>
+                    <span>订单描述：</span>
+                    <textarea id="order_intro" rows="4" cols="61" style="resize:none"></textarea>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-success collapse_btn" id="confirm_order">确认订单</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+
 
 
 
@@ -115,7 +122,7 @@
 
 <!-- Holder.js for project development only -->
 <script src="js/vendor/holder.js"></script>
-<script type="text/javascript" src="js/shopping_cart.js"></script>
+<script type="text/javascript" src="js/order_info.js"></script>
 
 <!-- Essential Plugins and Main JavaScript File -->
 <script src="js/plugins.js"></script>

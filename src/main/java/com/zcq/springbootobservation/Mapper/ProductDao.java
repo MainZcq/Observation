@@ -18,9 +18,9 @@ public interface ProductDao {
     AllType getRecordById(String Id);
 
     @Select("select * from products where satelliteID = #{satelliteID} and sensorID=#{sensorID} and NominalResolution like ifnull(#{nominalResolution},'%%') and cloudPercent like ifnull(#{cloudPercent},'%%')" +
-            " and level=#{level} and leftTopLng=#{leftTopLng} and leftTopLat=#{leftTopLat} and rightBottomLng=#{rightBottomLng} and rightBottomLat=#{rightBottomLat}")
+            " and level=#{level} and leftTopLng like ifnull(#{leftTopLng},'%%') and leftTopLat like ifnull(#{leftTopLat},'%%')  and rightBottomLng like ifnull(#{rightBottomLng},'%%') and rightBottomLat like ifnull(#{rightBottomLat},'%%') ")
     List<AllType> search(AllType allType);
 
-    @Insert("insert into products values (#{productID},#{satelliteID},#{sensorID},#{produceTime},#{nominalResolution},#{imagingMode},#{level},#{cloudPercent})")
+    @Insert("insert  ignore  into products values (#{productID},#{satelliteID},#{sensorID},#{produceTime},#{nominalResolution},#{imagingMode},#{level},#{cloudPercent},#{leftTopLng},#{leftTopLat},#{rightBottomLng},#{rightBottomLat},null,null,null,#{sceneID})")
     void insert(AllType allType);
 }

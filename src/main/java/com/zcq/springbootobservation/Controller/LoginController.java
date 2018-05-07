@@ -1,8 +1,10 @@
 package com.zcq.springbootobservation.Controller;
 
 
+import com.zcq.springbootobservation.Entity.AllType;
 import com.zcq.springbootobservation.Entity.UserType;
 import com.zcq.springbootobservation.Service.DataScanner;
+import com.zcq.springbootobservation.Service.ProductService;
 import com.zcq.springbootobservation.Service.UserService;
 //import com.zcq.springbootobservation.Service.WebSecurityConfig;
 import freemarker.template.Configuration;
@@ -17,10 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -115,11 +114,21 @@ public class LoginController {
         return "/login";
     }
 
-    @Scheduled(cron= "0 0 19 * * ?")
-    public void deleteAllTempClob(){
+    @Autowired
+    private ProductService productService;
+    @Scheduled(cron= "0 0 17 * * ?")
+    public void LoadData(){
         Date d = new Date();
+        List<AllType> allTypeList = new ArrayList<AllType>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        DataScanner.scanner();
+        allTypeList = DataScanner.scanner();
+        System.out.println(allTypeList.size());
+        for(int i = 0; i < allTypeList.size();i++)
+            try {
+                productService.insert(allTypeList.get(i));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         System.out.println("---->>数据入库:"+"当前时间：" + sdf.format(d));
     }
 

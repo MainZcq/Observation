@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -59,17 +60,22 @@ public class ProductController {
             allType.setSensorID(null);
         if(allType.getLeftTopLng().trim().isEmpty() || allType.getLeftTopLat().trim().isEmpty() || allType.getRightBottomLng().trim().isEmpty() || allType.getRightBottomLat().trim().isEmpty())
             System.out.println("经纬度不可为空");
+        if(allType.getCloudPercent().trim().isEmpty())
+            allType.setCloudPercent(null);
+        if(allType.getNominalResolution().trim().isEmpty())
+            allType.setNominalResolution(null);
         String GF1= null;
         String GF2= null;
         String GF3= null;
         String GF4= null;
-        String HJ1A= null;
+       /* String HJ1A= null;
         String HJ1B= null;
         String Terra= null;
         String ZY3= null;
-        String Aqua= null;
+        String Aqua= null;*/
         String regEx="\"(\\w+)\"";
-
+        List<String> SaList =  new ArrayList<String>();
+        List<String> SeList =  new ArrayList<String>();
         try{
             JSONObject jsonObject = new JSONObject(temp);
 
@@ -78,76 +84,107 @@ public class ProductController {
             String GF1sensorID = GF1.substring(1,GF1.length()-1);
             Pattern p1 = Pattern.compile(regEx);
             Matcher m1 = p1.matcher(GF1sensorID);
-            System.out.println("GF1传感器为：");
-            while(m1.find())
-                System.out.println(m1.group(1));
+            while(m1.find()) {
+                SaList.add("GF1");
+                SeList.add(m1.group(1));
+            }
             //GF2传感器解析
             GF2 = jsonObject.getString("GF2");
             String GF2sensorID = GF2.substring(1,GF2.length()-1);
             Pattern p2 = Pattern.compile(regEx);
             Matcher m2 = p2.matcher(GF2sensorID);
-            System.out.println("GF2传感器为：");
-            while(m2.find())
-                System.out.println(m2.group(1));
+
+            while(m2.find()) {
+                SaList.add("GF2");
+                SeList.add(m2.group(1));
+            }
             //GF3传感器解析
             GF3 = jsonObject.getString("GF3");
             String GF3sensorID = GF3.substring(1,GF3.length()-1);
             Pattern p3 = Pattern.compile(regEx);
             Matcher m3 = p3.matcher(GF3sensorID);
-            System.out.println("GF3传感器为：");
-            while(m3.find())
-                System.out.println(m3.group(1));
+
+            while(m3.find()) {
+                SaList.add("GF3");
+                SeList.add(m3.group(1));
+            }
             //GF4传感器解析
             GF4 = jsonObject.getString("GF4");
             String GF4sensorID = GF4.substring(1,GF4.length()-1);
             Pattern p4 = Pattern.compile(regEx);
             Matcher m4 = p4.matcher(GF4sensorID);
-            System.out.println("GF4传感器为：");
-            while(m4.find())
-                System.out.println(m4.group(1));
-            //HJ1A传感器解析
+            while(m4.find()) {
+                SaList.add("GF4");
+                SeList.add(m4.group(1));
+            }
+           /* //HJ1A传感器解析
             HJ1A = jsonObject.getString("HJ1A");
             String HJ1AsensorID = HJ1A.substring(1,HJ1A.length()-1);
             Pattern pHJ1A = Pattern.compile(regEx);
             Matcher mHJ1A= pHJ1A.matcher(HJ1AsensorID);
-            while(mHJ1A.find())
-                System.out.println(mHJ1A.group(1));
+            while(mHJ1A.find()) {
+                SaList.add("HJ1A");
+                SeList.add(mHJ1A.group(1));
+            }
             //HJ1B传感器解析
             HJ1B = jsonObject.getString("HJ1B");
             String HJ1BsensorID = HJ1B.substring(1,HJ1B.length()-1);
             Pattern pHJ1B = Pattern.compile(regEx);
             Matcher mHJ1B = pHJ1B.matcher(HJ1BsensorID);
-            while(mHJ1B.find())
-                System.out.println(mHJ1B.group(1));
+            while(mHJ1B.find()) {
+                SaList.add("HJ1B");
+                SeList.add(mHJ1B.group(1));
+            }
             //Terra传感器解析
             Terra = jsonObject.getString("Terra");
             String TerrasensorID = Terra.substring(1,Terra.length()-1);
             Pattern pTerra = Pattern.compile(regEx);
             Matcher mTerra = pTerra.matcher(TerrasensorID);
-            while(mTerra.find())
-                System.out.println(mTerra.group(1));
+            while(mTerra.find()) {
+                SaList.add("Terra");
+                SeList.add(mTerra.group(1));
+            }
             //ZY3传感器解析
             ZY3 = jsonObject.getString("ZY3");
             String ZY3sensorID = ZY3.substring(1,ZY3.length()-1);
             Pattern pZY3 = Pattern.compile(regEx);
             Matcher mZY3 = pZY3.matcher(ZY3sensorID);
-            while(mZY3.find())
-                System.out.println(mZY3.group(1));
+            while(mZY3.find()) {
+                SaList.add("ZY3");
+                SeList.add(mZY3.group(1));
+            }
             //Aqua传感器解析
             Aqua = jsonObject.getString("Aqua");
             String AquasensorID = Aqua.substring(1,Aqua.length()-1);
             Pattern pAqua = Pattern.compile(regEx);
             Matcher mAqua = pAqua.matcher(AquasensorID);
-            while(mAqua.find())
-                System.out.println(mAqua.group(1));
-
+            while(mAqua.find()) {
+                SaList.add("Aqua");
+                SeList.add(mAqua.group(1));
+            }*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
+       /* System.out.println(allType.getProvince());
+        if(allType.getProvince().equals("请选择省份"))
+            allType.setProvince(null);
+        if(allType.getCity().equals("请选择城市"))
+            allType.setCity(null);
+        if(allType.getCounty().equals("请选择区/县"))
+            allType.setCounty(null);*/
+        /*System.out.println("LeftTopLng:"+allType.getLeftTopLng()+";\nLeftTopLat:"+allType.getLeftTopLat()+";\nrightBottomLng:"+allType.getRightBottomLng()+";\nrightBottomLat:"+allType.getRightBottomLat()+ ";\nNominalResolution:"+allType.getNominalResolution()+";\nlevel:"+allType.getLevel()+";\ncloudPercent:"+allType.getCloudPercent());
+        System.out.println("province: "+allType.getProvince()+";\ncity: "+ allType.getCity()+";\ncounty: "+allType.getCounty());*/
+        List<List<AllType>> dataList=new ArrayList<List<AllType>>();
 
-        System.out.println("LeftTopLng:"+allType.getLeftTopLng()+";\nLeftTopLat:"+allType.getLeftTopLat()+";\nrightBottomLng:"+allType.getRightBottomLng()+";\nrightBottomLat:"+allType.getRightBottomLat()+ ";\nNominalResolution:"+allType.getNominalResolution()+";\nlevel:"+allType.getLevel()+";\ncloudPercent:"+allType.getCloudPercent());
+        for(int i=0;i<SaList.size();i++) {
+            for (int j = 0; j < SeList.size(); j++) {
+                allType.setSatelliteID(SaList.get(i));
+                allType.setSensorID(SeList.get(j));
+                List<AllType> data = productService.search(allType);
 
-        allType.setSensorID("SAR");
+                dataList.add(data);
+            }
+        }
 
 
         AllType test=new AllType();
@@ -163,18 +200,22 @@ public class ProductController {
         test.setRightBottomLat("46.555");
 
 
-        List<AllType> recieve=productService.search(test);
-        if(recieve.isEmpty())
+        List<AllType> receive= new ArrayList<AllType>();//productService.search(test);
+
+        if(dataList.isEmpty())
             System.out.println("空");
         else
-            for(int i =0;i<recieve.size();i++)
-                System.out.println(recieve.get(i).getProductID());
+            for(int i =0;i<dataList.size();i++)
+                for(int j = 0; j < dataList.get(i).size();j++) {
+                    System.out.println(dataList.get(i).get(j).getProductID());
+                    receive.add(dataList.get(i).get(j));
+        }
 
         String str="";
         ObjectMapper x = new ObjectMapper();
 
         try {
-            str = x.writeValueAsString(recieve);    //将java类对象转换为json字符串
+            str = x.writeValueAsString(receive);    //将java类对象转换为json字符串
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

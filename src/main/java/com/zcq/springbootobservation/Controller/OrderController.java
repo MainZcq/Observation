@@ -53,8 +53,20 @@ public class OrderController {
         String userName = (String)session.getAttribute(SESSION_KEY);
         List<OrderType> tempList = orderService.getListByUserId(userName);
 
+        model.addAttribute("currentUser",userName);
         model.addAttribute("CurrentUserOrderList", tempList);
         return "order";
+    }
+
+    @RequestMapping("/orderInfo")
+    public String orderInfo(HttpSession session,Model model){
+
+        String userName = (String)session.getAttribute(SESSION_KEY);
+        List<OrderType> tempList = orderService.getListByUserId(userName);
+
+        model.addAttribute("currentUser",userName);
+        model.addAttribute("CurrentUserOrderList", tempList);
+        return "orderInfo";
     }
 
     @RequestMapping(value="/orders")
