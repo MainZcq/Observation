@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="css/apply.css">
 
     <script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="js/register.js"></script>
     <!-- Modernizr -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     <!-- Respond.js for IE 8 or less only -->
@@ -56,41 +55,44 @@
 </header>
 <main role="main">
 
+    <form id="form3" name="form3" action="/orderInfo" onSubmit="return SendFormCart()">
+        <div class="shopping_cart_mod1">
+            <div class="blank3">
+                <div class="btn1">
 
-    <div class="shopping_cart_mod1">
-        <div class="blank3">
-            <div class="btn1">
-                <form  id="form3" name="form3" action="/ordernfo" oInSubmit="return SendFormCart()">
                     <button type="submit" class="btn btn-success collapse_btn" id="generate_order">生成订单</button>
-                </form>
-            </div>
-            <div class="btn2">
-                <!--<form class="btn2" id="form4" name="form4" onSubmit="return SendFormCart2()">-->
-                <button type="submit" class="btn btn-danger collapse_btn btn2"  id="delete_product" style="margin-left: 20px" onclick="SendFormCart2()">删除</button>
-                <!--</form>-->
+
+                </div>
+                <div class="btn2">
+                    <!--<form class="btn2" id="form4" name="form4" onSubmit="return SendFormCart2()">-->
+                    <button type="submit" class="btn btn-danger collapse_btn btn2" id="delete_product"
+                            style="margin-left: 20px" onclick="SendFormCart2()">删除
+                    </button>
+                    <!--</form>-->
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="shopping_cart_mod2">
-        <table class="bordered" id="shop_cart">
-            <thead>
-            <tr>
-                <th style="width: 5%">
-                    <input type="checkbox" name="select_all2" value="select_all2" id="select_all2">
-                </th>
-                <th style="width: 15%">产品号</th>
-                <th style="width: 15%">卫星</th>
-                <th style="width: 15%">传感器</th>
-                <th style="width: 15%">景序列号</th>
-                <th style="width: 15%">产品级别</th>
-                <th style="width: 20%">采集时间</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
+        <div class="shopping_cart_mod2">
+            <table class="bordered" id="shop_cart">
+                <thead>
+                <tr>
+                    <th style="width: 5%">
+                        <input type="checkbox" id="select_all2">
+                    </th>
+                    <th style="width: 15%">产品号</th>
+                    <th style="width: 15%">卫星</th>
+                    <th style="width: 15%">传感器</th>
+                    <th style="width: 15%">景序列号</th>
+                    <th style="width: 15%">产品级别</th>
+                    <th style="width: 20%">采集时间</th>
+                </tr>
+                </thead>
+                <tbody id="TbData"></tbody>
+            </table>
+        </div>
 
-
+    </form>
 
 
 </main>

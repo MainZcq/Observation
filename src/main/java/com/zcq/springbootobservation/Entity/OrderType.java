@@ -4,7 +4,7 @@ public class OrderType {
     private String orderId;
     private String productID;
     private String username;
-    private String realname;
+    private String sceneID;
     private String satelliteID;
     private String sensorID;
     private String leftTopLng;
@@ -13,6 +13,40 @@ public class OrderType {
     private String rightBottomLat;
     private String level;
     private String produceTime;
+    private String orderName;
+    private String orderIntro;
+
+    public String getSceneID() {
+        return sceneID;
+    }
+
+    public void setSceneID(String sceneID) {
+        this.sceneID = sceneID;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public String getOrderIntro() {
+        return orderIntro;
+    }
+
+    public void setOrderIntro(String orderIntro) {
+        this.orderIntro = orderIntro;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -22,28 +56,12 @@ public class OrderType {
         this.orderId = orderId;
     }
 
-    public String getProductId() {
-        return productID;
-    }
-
-    public void setProductId(String productID) {
-        this.productID = productID;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
     }
 
     public String getSatelliteID() {

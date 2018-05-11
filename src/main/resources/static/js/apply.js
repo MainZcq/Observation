@@ -35,6 +35,8 @@
         }
     });
 })(jQuery);
+
+
 //获取查询条件并传送至后台，从后台获取数据添加到表格；
 $('#findProduct').click(function(){
 
@@ -142,22 +144,39 @@ $('#findProduct').click(function(){
         dataType: 'JSON',
         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
         success : function(data) {
-
+            var index = 0;
             var html="";
+            length = data.length;
             for(var i= 0;i < data.length;i++) {
+
                 html += "<tr>",
                     html +="<td>" +
-                        "<input type=\"checkbox\" name=\"select\" value=\"select\"  class=\"select_choose\">"
+                        "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"input"+ index + "\">"
                         +"</td>";
                 html += "</td>",
-                    html += "<td>" + data[i].satelliteID + "</td>";
+                    html += "<td id=\"satellite"+ index + "\">" + data[i].satelliteID + "</td>";
                 html += "<td>" + data[i].sensorID + "</td>";
                 html += "<td>" + data[i].produceTime + "</td>";
                 html += "<td>" + data[i].nominalResolution + "</td>";
                 html += "<td>" + data[i].cloudPercent + "</td>";
-                html += "</td>"
+                html += "</td>";
+                index++;
             }
             $('#TbData').html(html);
+            var flag1=[];
+            var sw = [];//景的左下坐标
+            var ne = [];//景的右上坐标
+            for(var i= 0;i < data.length;i++) {
+
+                sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
+                ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
+            }
+            for(var i = 0; i < sw.length; i++){
+                scene.push(new BMap.Bounds(sw[i],ne[i]));
+                flag1[i]=false;
+                draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
+            }
+
         },
         error : function(data) {
             alert("查询错误");
@@ -167,12 +186,27 @@ $('#findProduct').click(function(){
     });
 
 });
-
+var tranfer_cart=[];//前台记录的选择加入购物车的产品
+var length;
+function SendFormSubmit(){
+    var isChosen=false;
+    var temp = length + 1;
+    for(var i = 0; i < length; i++){
+        if($("#input"+ i).prop("checked")){
+            isChosen=true;
+            tranfer_cart.push($("#input"+ i).val());
+        }
+    }
+    if(!isChosen){
+        alert("请选择要加入购物车的产品！");
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 //前台记录的查询条件
-var RightupJ=$("#RightupJ").val();
-var RightupW=$("#RightupW").val();
-var LeftdownJ=$("#LeftdownJ").val();
-var LeftdownW=$("#LeftdownW").val();
+
 var province=$("#province option:selected").text();
 var citys=$("#citys option:selected").text();
 var county=$("#county option:selected").text();
@@ -180,100 +214,7 @@ var county=$("#county option:selected").text();
 var resolution=$("#resolution").val();
 var sceneID=$("#cloud").val();
 var product_level=$("#product_level option:selected").text();
-var time1=$("#time1").val();
-var time2=$("#time2").val();
 
-var Aqua_MODIS=false;
-if ($('#Aqua_MODIS').prop('checked')){
-    Aqua_MODIS=true;
-}
-
-var GF1_PMS1=false;
-if ($('#GF1_PMS1').prop('checked')){
-    GF1_PMS1=true;
-}
-var GF1_PMS2=false;
-if ($('#GF1_PMS2').prop('checked')){
-    GF1_PMS2=true;
-}
-var GF1_WFV1=false;
-if ($('#GF1_WFV1').prop('checked')){
-    GF1_WFV1=true;
-}
-var GF1_WFV2=false;
-if ($('#GF1_WFV2').prop('checked')){
-    GF1_WFV2=true;
-}
-var GF1_WFV3=false;
-if ($('#GF1_WFV3').prop('checked')){
-    GF1_WFV3=true;
-}
-var GF1_WFV4=false;
-if ($('#GF1_WFV4').prop('checked')){
-    GF1_WFV4=true;
-}
-
-var GF2_PMS1=false;
-if ($('#GF2_PMS1').prop('checked')){
-    GF2_PMS1=true;
-}
-var GF2_PMS2=false;
-if ($('#GF2_PMS2').prop('checked')){
-    GF2_PMS2=true;
-}
-var GF2_WFV1=false;
-if ($('#GF2_WFV1').prop('checked')){
-    GF2_WFV1=true;
-}
-
-var GF3_SAR=false;
-if ($('#GF3_SAR').prop('checked')){
-    GF3_SAR=true;
-}
-
-var GF4_IRS=false;
-if ($('#GF4_IRS').prop('checked')){
-    GF4_IRS=true;
-}
-var GF4_PMI=false;
-if ($('#GF4_PMI').prop('checked')){
-    GF4_PMI=true;
-}
-var GF4_PMS=false;
-if ($('#GF4_PMS').prop('checked')){
-    GF4_PMS=true;
-}
-
-var HJ1B_CCD1=false;
-if ($('#HJ1B_CCD1').prop('checked')){
-    HJ1B_CCD1=true;
-}
-var HJ1B_CCD2=false;
-if ($('#HJ1B_CCD2').prop('checked')){
-    HJ1B_CCD2=true;
-}
-var HJ1B_IRS=false;
-if ($('#HJ1B_IRS').prop('checked')){
-    HJ1B_IRS=true;
-}
-
-var Terra_MODIS=false;
-if ($('#Terra_MODIS').prop('checked')){
-    Terra_MODIS=true;
-}
-
-var ZY3_MUX=false;
-if ($('#ZY3_MUX').prop('checked')){
-    ZY3_MUX=true;
-}
-var ZY3_NAD=false;
-if ($('#ZY3_NAD').prop('checked')){
-    ZY3_NAD=true;
-}
-var ZY3_TLC=false;
-if ($('#ZY3_TLC').prop('checked')){
-    ZY3_TLC=true;
-}
 
 
 //data_apply.html//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -316,20 +257,21 @@ var sw=[];//景的左下坐标
 var ne=[];//景的右上坐标
 var flag1=[];//判断该景是否已经显示出来，flag1=true为已经显示
 //测试：
-sw.push(new BMap.Point(118.790456,32.055491));//景1的左下坐标
-ne.push(new BMap.Point(118.803032,32.065284));//景1的右上坐标
-sw.push(new BMap.Point(118.785318,32.061837));//景2的左下坐标
-ne.push(new BMap.Point(118.799044,32.070772));//景2的右上坐标
-sw.push(new BMap.Point(113.209644,27.126003));//景3的左下坐标
-ne.push(new BMap.Point(124.064049,38.755141));//景3的右上坐标
-sw.push(new BMap.Point(120.928451,30.846849));//景4的左下坐标
-ne.push(new BMap.Point(122.381837,31.621483));//景4的右上坐标
+// sw.push(new BMap.Point(118.790456,32.055491));//景1的左下坐标
+// ne.push(new BMap.Point(118.803032,32.065284));//景1的右上坐标
+// sw.push(new BMap.Point(118.785318,32.061837));//景2的左下坐标
+// ne.push(new BMap.Point(118.799044,32.070772));//景2的右上坐标
+// sw.push(new BMap.Point(113.209644,27.126003));//景3的左下坐标
+// ne.push(new BMap.Point(124.064049,38.755141));//景3的右上坐标
+// sw.push(new BMap.Point(120.928451,30.846849));//景4的左下坐标
+// ne.push(new BMap.Point(122.381837,31.621483));//景4的右上坐标
 
 //sw[i]：景i的左下坐标   ne[i]：景i的右上坐标
 for(var i = 0; i < sw.length; i++){
     scene.push(new BMap.Bounds(sw[i],ne[i]));
     flag1[i]=false;
 }
+
 
 //显示景
 function draw_rectangle(SWlng,SWlat,NElng,NElat) {
@@ -372,29 +314,29 @@ var sceneID=[];
 var flag2=[];//判断该条记录是否已经显示出来，flag2=true为已经显示
 
 //测试：
-satellite.push("GF1");
-sensor.push("PMS1");
-collect_time.push("2018-04-21");
-productID.push("2899361");
-sceneID.push("4507856");
-
-satellite.push("GF2");
-sensor.push("PMS2");
-collect_time.push("2018-06-31");
-productID.push("2899369");
-sceneID.push("4507852");
-
-satellite.push("GF3");
-sensor.push("SAR");
-collect_time.push("2018-03-31");
-productID.push("2899362");
-sceneID.push("4507859");
-
-satellite.push("HJ1A");
-sensor.push("CCD1");
-collect_time.push("2018-01-31");
-productID.push("2899366");
-sceneID.push("4507850");
+// satellite.push("GF1");
+// sensor.push("PMS1");
+// collect_time.push("2018-04-21");
+// productID.push("2899361");
+// sceneID.push("4507856");
+//
+// satellite.push("GF2");
+// sensor.push("PMS2");
+// collect_time.push("2018-06-31");
+// productID.push("2899369");
+// sceneID.push("4507852");
+//
+// satellite.push("GF3");
+// sensor.push("SAR");
+// collect_time.push("2018-03-31");
+// productID.push("2899362");
+// sceneID.push("4507859");
+//
+// satellite.push("HJ1A");
+// sensor.push("CCD1");
+// collect_time.push("2018-01-31");
+// productID.push("2899366");
+// sceneID.push("4507850");
 
 for(var i = 0; i < satellite.length; i++){
     flag2[i]=false;
@@ -406,7 +348,7 @@ function resultList(index) {
 
     $("#result_list").append("<tr id='tr"+ index + "'></tr>");
     $("#tr"+ index).append("<td id='td"+ index + "'></td>");
-    $("#td"+ index).append("<input type='checkbox' class='select_choose' name='select' value='select' id='input"+ index + "'>");
+    $("#td"+ index).append("<input type='checkbox' class='select_choose' name='select' value='" + sceneID[index] + "'  id='input"+ index + "'>");
     $("#tr"+ index).append("<td>" + satellite[index] + "</td>");
     $("#tr"+ index).append("<td>" + sensor[index] + "</td>");
     $("#tr"+ index).append("<td>" + collect_time[index] + "</td>");
@@ -448,11 +390,11 @@ var choose_part1=true;
 
 //输入经纬度或省市区选择符合要求的景
 function SendFormInqury (){
-    var inputSW=new BMap.Point($("#LeftdownJ").val(),$("#LeftdownW").val());
-    var inputNE=new BMap.Point($("#RightupJ").val(),$("#RightupW").val());
+    var inputSW=new BMap.Point($("#leftTopLng").val(),$("#rightBottomLat").val());
+    var inputNE=new BMap.Point($("#rightBottomLng").val(),$("#leftTopLat").val());
     var inputArea=new BMap.Bounds(inputSW,inputNE);
 
-    if((($("#RightupJ").val() !== "")&&($("#RightupW").val() !== "")&&($("#LeftdownJ").val() !== "")&&($("#LeftdownW").val() !== "")  )&&(choose_part1)){
+    if((($("#leftTopLng").val() !== "")&&($("#rightBottomLat").val() !== "")&&($("#rightBottomLng").val() !== "")&&($("#leftTopLat").val() !== "")  )&&(choose_part1)){
         // alert("按经纬度查询");
         for(var i = 0; i < scene.length; i++){
             if((scene[i].containsBounds(inputArea)&&(flag1[i]==false)&&(flag2[i]==false))){
@@ -493,24 +435,7 @@ function SendFormInqury (){
 
 
 
-var tranfer_cart=[];//前台记录的选择加入购物车的产品
 
-function SendFormSubmit(){
-    var isChosen=false;
-    for(var i = 0; i < record.length; i++){
-        if($("#input"+ i).prop("checked")){
-            isChosen=true;
-            tranfer_cart.push(productID[i]);
-        }
-    }
-    if(!isChosen){
-        alert("请选择要加入购物车的产品！");
-        return false;
-    }
-    else {
-        return true;
-    }
-}
 
 
 

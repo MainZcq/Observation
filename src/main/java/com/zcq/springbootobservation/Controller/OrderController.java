@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -105,27 +108,78 @@ public class OrderController {
 
         //return "orderConfirm";
     }
+    //订单入数据库
     @RequestMapping(value="/orderConfirm")
-    public String getorderConfirm(HttpServletResponse response,HttpSession session,Model model)
+    public void getorderConfirm(String productIDList,String orderName, String orderIntro,HttpSession session, HttpServletResponse response)
     {
 
         String userName = (String)session.getAttribute(SESSION_KEY);
-       // System.out.println("用户名"+userName);
-        OrderType temp = orderService.getMaxIdRecord();
-
-        int MaxOrderId = 0;
-        try {
-            MaxOrderId = Integer.parseInt(temp.getOrderId());
-            MaxOrderId++;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        List<String> orderIdList = new ArrayList<>();
+        //如果当前没有用户登陆则拒绝入库
+        if(userName == null) {
+            System.out.println("没有用户登陆");
+            try {
+                response.setContentType("text/xml;charset=UTF-8");
+                response.setHeader("Cache-Control", "no-cache");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().print("noUser");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        //Object userName = session.getAttribute(WebSecurityConfig.SESSION_KEY);
-        String CurrentId = String.valueOf(MaxOrderId);
-        System.out.println("新订单编号"+CurrentId);
-        model.addAttribute("MaxOrderId", CurrentId);
-        model.addAttribute("userName", userName);
-        return "orderConfirm";
+        else {
+
+            String regEx="\"(\\w+)\"";
+            List<String> productID =  new ArrayList<String>();
+            Pattern p1 = Pattern.compile(regEx);
+            Matcher m1 = p1.matcher(productIDList);
+            while(m1.find()) {
+                productID.add(m1.group(1));
+            }
+
+            for(int i = 0; i < productID.size(); i++) {
+
+                int MaxOrderId = 0;
+                try {
+                    OrderType temp = orderService.getMaxIdRecord();
+                    MaxOrderId = Integer.parseInt(temp.getOrderId());
+                    MaxOrderId++;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                //Object userName = session.getAttribute(WebSecurityConfig.SESSION_KEY);
+                String CurrentId = String.valueOf(MaxOrderId);
+                System.out.println("新订单编号" + CurrentId);
+
+                orderIdList.add(CurrentId);
+
+                OrderType orderType = new OrderType();
+                orderType.setOrderId(CurrentId);
+                orderType.setProductID(productID.get(i));
+                orderType.setUsername(userName);
+                orderType.setOrderName(orderName);
+                orderType.setOrderIntro(orderIntro);
+                orderService.orderToDataBases(orderType);
+            }
+
+            String str = "";
+            ObjectMapper x = new ObjectMapper();
+
+            try {
+                str = x.writeValueAsString(orderIdList);    //将java类对象转换为json字符串
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                response.setContentType("text/xml;charset=UTF-8");
+                response.setHeader("Cache-Control", "no-cache");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().print(str);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Autowired
@@ -136,7 +190,7 @@ public class OrderController {
         System.out.println(orderId+ " " + productId+" "+username);
         OrderType orderType=new OrderType();
         orderType.setOrderId(orderId);
-        orderType.setProductId(productId);
+        orderType.setProductID(productId);
         orderType.setUsername(username);
         orderService.orderToDataBases(orderType);
 

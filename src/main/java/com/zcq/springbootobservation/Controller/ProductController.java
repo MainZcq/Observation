@@ -175,9 +175,15 @@ public class ProductController {
         /*System.out.println("LeftTopLng:"+allType.getLeftTopLng()+";\nLeftTopLat:"+allType.getLeftTopLat()+";\nrightBottomLng:"+allType.getRightBottomLng()+";\nrightBottomLat:"+allType.getRightBottomLat()+ ";\nNominalResolution:"+allType.getNominalResolution()+";\nlevel:"+allType.getLevel()+";\ncloudPercent:"+allType.getCloudPercent());
         System.out.println("province: "+allType.getProvince()+";\ncity: "+ allType.getCity()+";\ncounty: "+allType.getCounty());*/
         List<List<AllType>> dataList=new ArrayList<List<AllType>>();
+        //把经纬度首尾加上"%" 用于mysql模糊查询
+        allType.setLeftTopLat(translate(allType.getLeftTopLat()));
+        allType.setLeftTopLng(translate(allType.getLeftTopLng()));
+        allType.setRightBottomLat(translate(allType.getRightBottomLat()));
+        allType.setRightBottomLng(translate(allType.getRightBottomLng()));
 
         for(int i=0;i<SaList.size();i++) {
             for (int j = 0; j < SeList.size(); j++) {
+
                 allType.setSatelliteID(SaList.get(i));
                 allType.setSensorID(SeList.get(j));
                 List<AllType> data = productService.search(allType);
@@ -230,18 +236,45 @@ public class ProductController {
 
     }
 
-    @Autowired
-    private OrderService orderService;
-    @RequestMapping(value="/orderList")
-    public String getOrderList(HttpServletResponse response, Model model){
-        List<OrderType> tempList = orderService.getAll();
 
-        model.addAttribute("orderList", tempList);
-        return "orderList";
+    @RequestMapping(value="/searchByID")
+    public void getOrderList(String productIDList,HttpServletResponse response){
+
+        String regEx="\"(\\w+)\"";
+        List<String> productID =  new ArrayList<String>();
+        Pattern p1 = Pattern.compile(regEx);
+        Matcher m1 = p1.matcher(productIDList);
+        while(m1.find()) {
+
+            productID.add(m1.group(1));
+        }
+        List<AllType> productList = new ArrayList<AllType>();
+        for(int i = 0; i < productID.size(); i++)
+            productList.add(productService.getRecordById(productID.get(i)));
+
+
+
+        String str="";
+        ObjectMapper x = new ObjectMapper();
+
+        try {
+            str = x.writeValueAsString(productList);    //将java类对象转换为json字符串
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        try {
+            response.setContentType("text/xml;charset=UTF-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-
+    @Autowired
+    private OrderService orderService;
     @RequestMapping(value="/order")
     public void getorder(String productId, HttpServletResponse response){
         AllType currentRecord = productService.getRecordById(productId);
@@ -290,6 +323,14 @@ public class ProductController {
         model.addAttribute("MaxOrderId", CurrentId);
         model.addAttribute("userName", userName);
         return "orderConfirm";
+    }
+
+    String translate(String lngAndLat){
+        String temp = "";
+        temp+="%";
+        temp+=lngAndLat;
+        temp+="%";
+        return temp;
     }
 
 }

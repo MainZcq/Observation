@@ -18,6 +18,6 @@ public interface OrderDao {
     @Select("select * from orders order by orderId desc limit 1")
     OrderType getMaxIdRecord();
 
-    @Insert("insert into orders values (#{orderId},#{productId},#{username})")
+    @Insert("insert into orders values (#{orderId},#{productID},#{username},#{orderName},#{orderIntro})")
     void orderToDataBases(OrderType orderType);
 }

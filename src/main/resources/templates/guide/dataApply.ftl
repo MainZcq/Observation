@@ -82,15 +82,15 @@
                             <div class="part1">
                                 <div class="mod1">
                                     <label>左上经度：</label>
-                                    <input type="text" name="leftTopLng" value="" id="leftTopLng" class="input1">
+                                    <input type="text" name="RightupJ" value="" id="leftTopLng" class="input1">
                                     <label>左上纬度：</label>
-                                    <input type="text" name="leftTopLat" value="" id="leftTopLat" class="input1">
+                                    <input type="text" name="RightupW" value="" id="leftTopLat" class="input1">
                                 </div>
                                 <div class="mod1">
                                     <label>右下经度：</label>
-                                    <input type="text" name="rightBottomLng" value="" id="rightBottomLng" class="input1">
+                                    <input type="text" name="LeftdownJ" value="" id="rightBottomLng" class="input1">
                                     <label>右下纬度：</label>
-                                    <input type="text" name="rightBottomLat" value="" id="rightBottomLat" class="input1">
+                                    <input type="text" name="LeftdownW" value="" id="rightBottomLat" class="input1">
                                 </div>
                                 <p class="box1_p">单位：度。  实例： 左上角经度：120.111    左上纬度：89.675</p>
                             </div>
@@ -209,7 +209,7 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-success submit_btn" id="findProduct" >产品查询</button>
+                        <button type="submit" class="btn btn-success submit_btn" id="findProduct" onclick="SendFormInqury()">产品查询</button>
 
                     </div>
                 </div>
@@ -234,9 +234,9 @@
                                 <!--<div class="mod1">-->
                                 <table class="bordered" id="result_list">
                                     <thead id="thead1">
-                                    <tr>
+                                    <tr class="title_hover">
                                         <th style="width: 10%">
-                                            <input type="checkbox" name="select_all" value="select_all" id="select_all">
+                                            <input type="checkbox" id="select_all">
                                         </th>
                                         <!--<a href="#" onclick="$.sortTable.sort('result_list',0)"><th style="width: 15%">卫星</th></a>-->
                                         <th style="width: 15%" onclick="$.sortTable.sort('result_list',1)">卫星</th>

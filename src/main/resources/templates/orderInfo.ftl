@@ -70,11 +70,12 @@
                 <th style="width: 25%">采集时间</th>
             </tr>
             </thead>
+            <tbody id="TbData"></tbody>
         </table>
     </div>
 
     <div class="order_info_mod2">
-        <form  id="form4" name="form4" action="order.html" onSubmit="return SendFormOrder()">
+        <form  id="form4" name="form4" action="/order" onSubmit="return SendFormOrder()">
             <div class="form_div">
                 <h3>填写订单信息</h3>
             </div>
@@ -82,12 +83,13 @@
             <ul class="ul_style">
                 <li>
                     <span>订单名称：</span>
-                    <input type="text" name="order_name" value="" id="order_name" style="width: 450px">
+                    <input type="text" name="order_name" id="order_name" style="width: 450px">
                 </li>
                 <li>
                     <span>订单描述：</span>
-                    <textarea id="order_intro" rows="4" cols="61" style="resize:none"></textarea>
+                    <textarea id="order_intro" rows="4" cols="61" name="order_name" style="resize:none"></textarea>
                 </li>
+                </div>
                 <li>
                     <button type="submit" class="btn btn-success collapse_btn" id="confirm_order">确认订单</button>
                 </li>

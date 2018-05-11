@@ -185,7 +185,7 @@
     <div class="header_style">
         <div class="container">
             <div class="row">
-                <a href="index.html">
+                <a href="/">
                     <div class="col-md-4 nav-left">
                         <p>高分数据服务系统</p>
                     </div>
@@ -226,7 +226,31 @@
                     <th style="width: 10%">下载地址</th>
                 </tr>
                 </thead>
-
+                <tbody>
+                <#list CurrentUserOrderList as order>
+                <tr>
+                    <td>【${order.orderName}】</td>
+                    <td>
+                        <div>
+                        <div>订单号：${order.orderId}</div>
+                        <div>卫星：${order.satellite}</div>
+                        <div>传感器：${order.sensorID}</div>
+                        <div>景序列号：${order.username}</div>
+                        </div>
+                        <div>
+                        <div>产品号：${order.productID}</div>
+                        <div>产品级别：${order.level}</div>
+                        <div>优先级：${order.leftTopLng}</div>
+                        <div>订购时间：${order.produceTime}</div>
+                        </div>
+                    </td>
+                    <td>通过审核</td>
+                    <td>完成</td>
+                    <td>已结束</td>
+                    <td><a href='#'>PMI</td>
+                </tr>
+                </#list>
+                </tbody>
             </table>
         </div>
 

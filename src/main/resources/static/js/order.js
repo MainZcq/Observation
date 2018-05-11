@@ -41,36 +41,6 @@ var downloadAddr=[];//下载地址
 
 
 // 测试：
-orderName.push("TestOrder1");
-orderID.push("107608991");
-satellite.push("GF1");
-sensor.push("SAR");
-sceneID.push("4507856");
-productID.push("2899361");
-productLevel.push("1A级产品");
-priority.push("6级");
-orderTime.push("2018-02-28 ");
-checkStatus.push("通过审核");
-proceedStatus.push("完成");
-orderStep.push("已结束");
-downloadAddr.push("PMI 地址1");
-
-orderName.push("Order2");
-orderID.push("107608992");
-satellite.push("GF2");
-sensor.push("SAR");
-sceneID.push("4507856");
-productID.push("2899362");
-productLevel.push("1A级产品");
-priority.push("6级");
-orderTime.push("2018-02-28 ");
-checkStatus.push("通过审核");
-proceedStatus.push("完成");
-orderStep.push("已结束");
-downloadAddr.push("PMI 地址1");
-
-orderName.push("Order-2018.3.8");
-orderID.push("107608993");
 
 //显示当前订单查询结果
 function insertCurrent(index) {
@@ -195,4 +165,17 @@ for(var i = 0; i < orderID2.length; i++){
     //这里将订单号为orderID2[i]的所有产品信息存入各个数组中
     transferOrderID2=orderID2[i];
     //以下将该订单的对应产品的orderID2……downloadAddr2信息录入相应数组
+}
+
+var url =decodeURI(decodeURI(location.search)); //获取url中"?"符后的字串，使用了两次decodeRUI解码
+var Request = [];//order_info.html点击“确认订单”后，表单传递的订单名称和订单描述
+
+if(url.indexOf('?') != -1) {
+    var str;//字符串
+    var strs;//字符串数组
+    str = url.substr(1);　 //去掉?号
+    strs = str.split('&');//把一个字符串分割成字符串数组
+    for(var i = 0; i < strs.length; i++) {
+        Request[i] = (strs[i].split('=')[1]);
+    }
 }
