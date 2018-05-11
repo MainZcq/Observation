@@ -37,163 +37,6 @@
 })(jQuery);
 
 
-//获取查询条件并传送至后台，从后台获取数据添加到表格；
-// $('#findProduct').click(function(){
-//
-//     var leftTopLng = $("#leftTopLng").val();
-//     var leftTopLat = $("#leftTopLat").val();
-//     var rightBottomLng = $("#rightBottomLng").val();
-//     var rightBottomLat = $("#rightBottomLat").val();
-//     var nominalResolution=$("#nominalResolution").val();
-//     var cloudPercent=$("#cloudPercent").val();
-//     var level=$("#product_level").val();
-//     /*var province=$("#province option:selected").text();
-//     var citys=$("#citys option:selected").text();
-//     var county=$("#county option:selected").text();*/
-//
-//
-//
-//     var time1=$("#time1").val();
-//     var time2=$("#time2").val();
-//
-//     var chk_value1 =[];//定义一个数组
-//     $('input[name="GF1"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value1.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//     var chk_value2 =[];//定义一个数组
-//     $('input[name="GF2"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value2.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value3 =[];//定义一个数组
-//     $('input[name="GF3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value3.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value4 =[];//定义一个数组
-//     $('input[name="GF4"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value4.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     /*var chk_value5 =[];//定义一个数组
-//     $('input[name="HJ1A"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value5.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value6 =[];//定义一个数组
-//     $('input[name="HJ1B"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value6.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value7 =[];//定义一个数组
-//     $('input[name="Terra"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value7.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value8 =[];//定义一个数组
-//     $('input[name="ZY3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value8.push($(this).val());//将选中的值添加到数组chk_value中
-//     });
-//
-//
-//     var chk_value9 =[];//定义一个数组
-//     $('input[name="Aqua"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-//         chk_value9.push($(this).val());//将选中的值添加到数组chk_value中
-//     });*/
-//
-//     var sensor={
-//         'GF1':chk_value1,
-//         'GF2':chk_value2,
-//         'GF3':chk_value3,
-//         'GF4':chk_value4,
-//     /*    'HJ1A':chk_value5,
-//         'HJ1B':chk_value6,
-//         'Terra':chk_value7,
-//         'ZY3':chk_value8,
-//         'Aqua':chk_value9,*/
-//     }
-//
-//     var temp = {
-//         'leftTopLng':leftTopLng,
-//         'leftTopLat':leftTopLat,
-//         'rightBottomLng':rightBottomLng,
-//         'rightBottomLat':rightBottomLat,
-//         'nominalResolution':nominalResolution,
-//         'cloudPercent':cloudPercent,
-//         'level':level,
-//         'province':province,
-//         'city':citys,
-//         'county':county,
-//         'produceTime':time1+";"+time2,
-//         'satelliteID': "GF3",
-//         'sensorID': JSON.stringify(sensor),
-//     };
-//
-//
-//     $.ajax({
-//         url:"/product/search",
-//         type:'POST',
-//         data: temp,
-//         dataType: 'JSON',
-//         async:false,
-//         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-//         success : function(data) {
-//             var index = 0;
-//             var html="";
-//             length = data.length;
-//             for(var i= 0;i < data.length;i++) {
-//
-//                 satellite.push(data[i].satelliteID);
-//                 sensorID.push(data[i].sensorID);
-//
-//                 collect_time.push(data[i].produceTime);
-//                 productID.push(data[i].productID);
-//                 sceneID.push(data[i].sceneID);
-//                 // html += "<tr>",
-//                 //     html +="<td>" +
-//                 //         "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"input"+ index + "\">"
-//                 //         +"</td>";
-//                 // html += "</td>",
-//                 //     html += "<td id=\"satellite"+ index + "\">" + data[i].satelliteID + "</td>";
-//                 // html += "<td>" + data[i].sensorID + "</td>";
-//                 // html += "<td>" + data[i].produceTime + "</td>";
-//                 // html += "<td>" + data[i].nominalResolution + "</td>";
-//                 // html += "<td>" + data[i].cloudPercent + "</td>";
-//                 // html += "</td>";
-//                 // index++;
-//
-//             }
-//             // $('#TbData').html(html);
-//             // var flag1=[];
-//             for(var i= 0;i < data.length;i++) {
-//
-//                 sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
-//                 ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
-//             }
-//             // for(var i = 0; i < sw.length; i++){
-//             //     scene.push(new BMap.Bounds(sw[i],ne[i]));
-//             //     flag1[i]=false;
-//             //     draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
-//             // }
-//
-//
-//         },
-//         error : function(data) {
-//             alert("查询错误");
-//
-//         }
-//
-//     });
-//
-// });
-
 
 //前台记录的查询条件
 
@@ -205,7 +48,13 @@ var resolution=$("#resolution").val();
 var sceneID=$("#cloud").val();
 var product_level=$("#product_level option:selected").text();
 
-
+var choose_area=new BMap.Polygon();//选择省市区时的区域
+var overlays = [];//鼠标画出框选区域
+var draw_scene=[];//显示出包含框选区域的景
+var scene=[];//景
+var sw=[];//景的左下坐标
+var ne=[];//景的右上坐标
+var flag1=[];//判断该景是否已经显示出来，flag1=true为已经显示
 
 //data_apply.html//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var map = new BMap.Map("baiduMap", {enableMapClick:false});  //创建Map实例
@@ -238,15 +87,6 @@ var drawingManager = new BMapLib.DrawingManager(map, {
     polygonOptions: styleOptions, //多边形的样式
     rectangleOptions: styleOptions //矩形的样式
 });
-
-var choose_area=new BMap.Polygon();//选择省市区时的区域
-var overlays = [];//鼠标画出框选区域
-var draw_scene=[];//显示出包含框选区域的景
-var scene=[];//景
-var sw=[];//景的左下坐标
-var ne=[];//景的右上坐标
-var flag1=[];//判断该景是否已经显示出来，flag1=true为已经显示
-
 
 
 
@@ -302,8 +142,20 @@ var flag2=[];//判断该条记录是否已经显示出来，flag2=true为已经�
 //显示查询结果
 function resultList(index) {
 
+    // var html="";
+    // html += "<tr>",
+    //     html +="<td>" +
+    //         "<input type=\"checkbox\" name=\"select\" value=\"" +productID[index]+"\" class =\"select_choose\" id=\"input"+ index + "\">"
+    //         +"</td>";
+    // html += "</td>",
+    //     html += "<td id=\"satellite"+ index + "\">" + satellite[index] + "</td>";
+    // html += "<td>" + sensorID[index] + "</td>";
+    // html += "<td>" + collect_time[index] + "</td>";
+    // html += "<td>" + NominalResolution[index] + "</td>";
+    // html += "<td>" + CloudPercent[index] + "</td>";
+    // html += "</td>";
 
-    $("#result_list").append("<tr id='tr"+ index + "'></tr>");
+    $("#TbData").append("<tr id='tr"+ index + "'></tr>");
     $("#tr"+ index).append("<td id='td"+ index + "'></td>");
     $("#td"+ index).append("<input type='checkbox' class='select_choose' name='select' value='" + productID[index] + "'  id='input"+ index + "'>");
     $("#tr"+ index).append("<td>" + satellite[index] + "</td>");
@@ -330,7 +182,6 @@ function resultList(index) {
     var id_tr="tr"+ index;
     return id_tr;
 
-
 }
 
 
@@ -338,6 +189,7 @@ var choose_part1=true;
 
 //输入经纬度或省市区选择符合要求的景
 function SendFormInqury (){
+
 
     var leftTopLng = $("#leftTopLng").val();
     var leftTopLat = $("#leftTopLat").val();
@@ -349,7 +201,6 @@ function SendFormInqury (){
     /*var province=$("#province option:selected").text();
     var citys=$("#citys option:selected").text();
     var county=$("#county option:selected").text();*/
-
 
 
     var time1=$("#time1").val();
@@ -439,17 +290,71 @@ function SendFormInqury (){
             }
             // $('#TbData').html(html);
             // var flag1=[];
+            sw.length = 0;//清空数组
+            ne.length = 0;//清空数组
             for(var i= 0;i < data.length;i++) {
 
                 sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
                 ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
             }
-            // for(var i = 0; i < sw.length; i++){
-            //     scene.push(new BMap.Bounds(sw[i],ne[i]));
-            //     flag1[i]=false;
-            //     draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
-            // }
+            /*
+               * 对后台传送的数据进行解析并在地图上绘制和展示在列表
+               * */
+            for(var i = 0; i < satellite.length; i++){
+                flag2[i]=false;
+                flag3[i]=false;
+            }
 
+            //sw[i]：景i的左下坐标   ne[i]：景i的右上坐标
+            scene.length = 0;//清空数组
+            for(var i = 0; i < sw.length; i++){
+                scene.push(new BMap.Bounds(sw[i],ne[i]));
+                flag1[i]=false;
+            }
+
+            var inputSW=new BMap.Point($("#leftTopLng").val(),$("#rightBottomLat").val());
+            var inputNE=new BMap.Point($("#rightBottomLng").val(),$("#leftTopLat").val());
+            var inputArea=new BMap.Bounds(inputSW,inputNE);
+
+
+
+            if((($("#leftTopLng").val() !== "")&&($("#rightBottomLat").val() !== "")&&($("#rightBottomLng").val() !== "")&&($("#leftTopLat").val() !== "")  )&&(choose_part1)){
+                // alert("按经纬度查询");
+                $("#TbData").html("");
+                for(var i = 0; i < scene.length; i++){
+                    if(((flag1[i]==false)&&(flag2[i]==false))){
+                        draw_scene[i]=draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);//显示景
+                        record[i]=resultList(i);//显示查询结果
+                        flag1[i]=true;
+                        flag2[i]=true;
+                    }
+                }
+                // document.form1.submit();
+            }
+            else if((($("#province option:selected").text())!=="请选择省份" )&&(!choose_part1)){
+                // alert("按省市区查询");
+                for (var j = 0; j < scene.length; j++) {
+                    if ((scene[j].containsBounds(choose_area.getBounds()) && (flag1[j] == false)&& (flag2[j] == false))) {
+                        draw_scene[j] = draw_rectangle(sw[j].lng, sw[j].lat, ne[j].lng, ne[j].lat);//显示景
+                        record[j] = resultList(j);//显示查询结果
+                        flag1[j] = true;
+                        flag2[j] = true;
+                    }
+                }
+                // document.form1.submit();
+            }
+            else{
+                // alert("查询所有记录");
+                for(var k = 0; k < scene.length; k++){
+                    if((flag1[k]==false)&&(flag2[k]==false)){
+                        draw_scene[k]=draw_rectangle(sw[k].lng,sw[k].lat,ne[k].lng,ne[k].lat);//显示景
+                        record[k]=resultList(k);//显示查询结果
+                        flag1[k]=true;
+                        flag2[k]=true;
+                    }
+                }
+                // document.form1.submit();
+            }
 
         },
         error : function(data) {
@@ -459,67 +364,9 @@ function SendFormInqury (){
 
     });
 
-    for(var i = 0; i < sw.length; i++){
-        scene.push(new BMap.Bounds(sw[i],ne[i]));
-        flag1[i]=false;
-    }
-    for(var i = 0; i < satellite.length; i++){
-        flag2[i]=false;
-        flag3[i]=false;
-    }
 
-    //sw[i]：景i的左下坐标   ne[i]：景i的右上坐标
-    for(var i = 0; i < sw.length; i++){
-        scene.push(new BMap.Bounds(sw[i],ne[i]));
-        flag1[i]=false;
-    }
-
-    var inputSW=new BMap.Point($("#leftTopLng").val(),$("#rightBottomLat").val());
-    var inputNE=new BMap.Point($("#rightBottomLng").val(),$("#leftTopLat").val());
-    var inputArea=new BMap.Bounds(inputSW,inputNE);
-
-    if((($("#leftTopLng").val() !== "")&&($("#rightBottomLat").val() !== "")&&($("#rightBottomLng").val() !== "")&&($("#leftTopLat").val() !== "")  )&&(choose_part1)){
-        // alert("按经纬度查询");
-        for(var i = 0; i < scene.length; i++){
-            if(((flag1[i]==false)&&(flag2[i]==false))){
-                draw_scene[i]=draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);//显示景
-                record[i]=resultList(i);//显示查询结果
-                flag1[i]=true;
-                flag2[i]=true;
-            }
-        }
-        // document.form1.submit();
-    }
-    else if((($("#province option:selected").text())!=="请选择省份" )&&(!choose_part1)){
-        // alert("按省市区查询");
-        for (var j = 0; j < scene.length; j++) {
-            if ((scene[j].containsBounds(choose_area.getBounds()) && (flag1[j] == false)&& (flag2[j] == false))) {
-                draw_scene[j] = draw_rectangle(sw[j].lng, sw[j].lat, ne[j].lng, ne[j].lat);//显示景
-                record[j] = resultList(j);//显示查询结果
-                flag1[j] = true;
-                flag2[j] = true;
-            }
-        }
-        // document.form1.submit();
-    }
-    else{
-        // alert("查询所有记录");
-        for(var k = 0; k < scene.length; k++){
-            if((flag1[k]==false)&&(flag2[k]==false)){
-                draw_scene[k]=draw_rectangle(sw[k].lng,sw[k].lat,ne[k].lng,ne[k].lat);//显示景
-                record[k]=resultList(k);//显示查询结果
-                flag1[k]=true;
-                flag2[k]=true;
-            }
-        }
-        // document.form1.submit();
-    }
     // return true;
 }
-
-
-
-
 
 
 
