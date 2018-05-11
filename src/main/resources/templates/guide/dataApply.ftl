@@ -281,6 +281,7 @@
 <script src="js/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 <script type="text/javascript">
+
     $(window).load(function(){
         var currentUser ="${currentUser}";
         if(currentUser == ""){
@@ -294,6 +295,31 @@
         }
 
     });
+
+    var tranfer_cart=[];//前台记录的选择加入购物车的产品
+    var length;
+    function SendFormSubmit(){
+        var isChosen=false;
+        var currentUser ="${currentUser}";
+        if(currentUser == ""){
+            alert("请登陆");
+            window.location.href="/login";
+        }
+
+        for(var i = 0; i < length; i++){
+            if($("#input"+ i).prop("checked")){
+                isChosen=true;
+                tranfer_cart.push($("#input"+ i).val());
+            }
+        }
+        if(!isChosen){
+            alert("请选择要加入购物车的产品！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
 </script>
 <!-- Holder.js for project development only -->

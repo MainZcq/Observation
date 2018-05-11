@@ -19,6 +19,25 @@ $(function(){
     });
 });
 
+// $(window).load(function(){
+//         var productIDList = "test";
+//
+//         $.ajax({
+//             url:"/orderInfo",
+//             type:'POST',
+//             data: productIDList,
+//             dataType: 'json',
+//             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+//             success : function(data) {
+//                 alert(data[0].orderID);
+//
+//             },
+//             error : function(data) {
+//                 alert("查询失败");
+//             }
+//
+//         });
+// });
 
 var transferOrderID;//前台传递给后台的该OrderID,以便获取该订单的所有产品的参数信息
 var orderName=[];//订单名称，前台接收后台传递的当前订单名称数组
@@ -41,6 +60,36 @@ var downloadAddr=[];//下载地址
 
 
 // 测试：
+// orderName.push("TestOrder1");
+// orderID.push("107608991");
+// satellite.push("GF1");
+// sensor.push("SAR");
+// sceneID.push("4507856");
+// productID.push("2899361");
+// productLevel.push("1A级产品");
+// priority.push("6级");
+// orderTime.push("2018-02-28 ");
+// checkStatus.push("通过审核");
+// proceedStatus.push("完成");
+// orderStep.push("已结束");
+// downloadAddr.push("PMI 地址1");
+//
+// orderName.push("Order2");
+// orderID.push("107608992");
+// satellite.push("GF2");
+// sensor.push("SAR");
+// sceneID.push("4507856");
+// productID.push("2899362");
+// productLevel.push("1A级产品");
+// priority.push("6级");
+// orderTime.push("2018-02-28 ");
+// checkStatus.push("通过审核");
+// proceedStatus.push("完成");
+// orderStep.push("已结束");
+// downloadAddr.push("PMI 地址1");
+//
+// orderName.push("Order-2018.3.8");
+// orderID.push("107608993");
 
 //显示当前订单查询结果
 function insertCurrent(index) {

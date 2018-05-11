@@ -233,7 +233,7 @@
                     <td>
                         <div>
                         <div>订单号：${order.orderId}</div>
-                        <div>卫星：${order.satellite}</div>
+                        <div>卫星：${order.satelliteID}</div>
                         <div>传感器：${order.sensorID}</div>
                         <div>景序列号：${order.username}</div>
                         </div>

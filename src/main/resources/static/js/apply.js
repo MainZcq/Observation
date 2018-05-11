@@ -38,173 +38,163 @@
 
 
 //获取查询条件并传送至后台，从后台获取数据添加到表格；
-$('#findProduct').click(function(){
+// $('#findProduct').click(function(){
+//
+//     var leftTopLng = $("#leftTopLng").val();
+//     var leftTopLat = $("#leftTopLat").val();
+//     var rightBottomLng = $("#rightBottomLng").val();
+//     var rightBottomLat = $("#rightBottomLat").val();
+//     var nominalResolution=$("#nominalResolution").val();
+//     var cloudPercent=$("#cloudPercent").val();
+//     var level=$("#product_level").val();
+//     /*var province=$("#province option:selected").text();
+//     var citys=$("#citys option:selected").text();
+//     var county=$("#county option:selected").text();*/
+//
+//
+//
+//     var time1=$("#time1").val();
+//     var time2=$("#time2").val();
+//
+//     var chk_value1 =[];//定义一个数组
+//     $('input[name="GF1"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value1.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//     var chk_value2 =[];//定义一个数组
+//     $('input[name="GF2"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value2.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value3 =[];//定义一个数组
+//     $('input[name="GF3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value3.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value4 =[];//定义一个数组
+//     $('input[name="GF4"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value4.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     /*var chk_value5 =[];//定义一个数组
+//     $('input[name="HJ1A"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value5.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value6 =[];//定义一个数组
+//     $('input[name="HJ1B"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value6.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value7 =[];//定义一个数组
+//     $('input[name="Terra"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value7.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value8 =[];//定义一个数组
+//     $('input[name="ZY3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value8.push($(this).val());//将选中的值添加到数组chk_value中
+//     });
+//
+//
+//     var chk_value9 =[];//定义一个数组
+//     $('input[name="Aqua"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+//         chk_value9.push($(this).val());//将选中的值添加到数组chk_value中
+//     });*/
+//
+//     var sensor={
+//         'GF1':chk_value1,
+//         'GF2':chk_value2,
+//         'GF3':chk_value3,
+//         'GF4':chk_value4,
+//     /*    'HJ1A':chk_value5,
+//         'HJ1B':chk_value6,
+//         'Terra':chk_value7,
+//         'ZY3':chk_value8,
+//         'Aqua':chk_value9,*/
+//     }
+//
+//     var temp = {
+//         'leftTopLng':leftTopLng,
+//         'leftTopLat':leftTopLat,
+//         'rightBottomLng':rightBottomLng,
+//         'rightBottomLat':rightBottomLat,
+//         'nominalResolution':nominalResolution,
+//         'cloudPercent':cloudPercent,
+//         'level':level,
+//         'province':province,
+//         'city':citys,
+//         'county':county,
+//         'produceTime':time1+";"+time2,
+//         'satelliteID': "GF3",
+//         'sensorID': JSON.stringify(sensor),
+//     };
+//
+//
+//     $.ajax({
+//         url:"/product/search",
+//         type:'POST',
+//         data: temp,
+//         dataType: 'JSON',
+//         async:false,
+//         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+//         success : function(data) {
+//             var index = 0;
+//             var html="";
+//             length = data.length;
+//             for(var i= 0;i < data.length;i++) {
+//
+//                 satellite.push(data[i].satelliteID);
+//                 sensorID.push(data[i].sensorID);
+//
+//                 collect_time.push(data[i].produceTime);
+//                 productID.push(data[i].productID);
+//                 sceneID.push(data[i].sceneID);
+//                 // html += "<tr>",
+//                 //     html +="<td>" +
+//                 //         "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"input"+ index + "\">"
+//                 //         +"</td>";
+//                 // html += "</td>",
+//                 //     html += "<td id=\"satellite"+ index + "\">" + data[i].satelliteID + "</td>";
+//                 // html += "<td>" + data[i].sensorID + "</td>";
+//                 // html += "<td>" + data[i].produceTime + "</td>";
+//                 // html += "<td>" + data[i].nominalResolution + "</td>";
+//                 // html += "<td>" + data[i].cloudPercent + "</td>";
+//                 // html += "</td>";
+//                 // index++;
+//
+//             }
+//             // $('#TbData').html(html);
+//             // var flag1=[];
+//             for(var i= 0;i < data.length;i++) {
+//
+//                 sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
+//                 ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
+//             }
+//             // for(var i = 0; i < sw.length; i++){
+//             //     scene.push(new BMap.Bounds(sw[i],ne[i]));
+//             //     flag1[i]=false;
+//             //     draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
+//             // }
+//
+//
+//         },
+//         error : function(data) {
+//             alert("查询错误");
+//
+//         }
+//
+//     });
+//
+// });
 
-    var leftTopLng = $("#leftTopLng").val();
-    var leftTopLat = $("#leftTopLat").val();
-    var rightBottomLng = $("#rightBottomLng").val();
-    var rightBottomLat = $("#rightBottomLat").val();
-    var nominalResolution=$("#nominalResolution").val();
-    var cloudPercent=$("#cloudPercent").val();
-    var level=$("#product_level").val();
-    /*var province=$("#province option:selected").text();
-    var citys=$("#citys option:selected").text();
-    var county=$("#county option:selected").text();*/
 
-
-
-    var time1=$("#time1").val();
-    var time2=$("#time2").val();
-
-    var chk_value1 =[];//定义一个数组
-    $('input[name="GF1"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value1.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-    var chk_value2 =[];//定义一个数组
-    $('input[name="GF2"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value2.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value3 =[];//定义一个数组
-    $('input[name="GF3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value3.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value4 =[];//定义一个数组
-    $('input[name="GF4"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value4.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    /*var chk_value5 =[];//定义一个数组
-    $('input[name="HJ1A"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value5.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value6 =[];//定义一个数组
-    $('input[name="HJ1B"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value6.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value7 =[];//定义一个数组
-    $('input[name="Terra"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value7.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value8 =[];//定义一个数组
-    $('input[name="ZY3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value8.push($(this).val());//将选中的值添加到数组chk_value中
-    });
-
-
-    var chk_value9 =[];//定义一个数组
-    $('input[name="Aqua"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
-        chk_value9.push($(this).val());//将选中的值添加到数组chk_value中
-    });*/
-
-    var sensor={
-        'GF1':chk_value1,
-        'GF2':chk_value2,
-        'GF3':chk_value3,
-        'GF4':chk_value4,
-    /*    'HJ1A':chk_value5,
-        'HJ1B':chk_value6,
-        'Terra':chk_value7,
-        'ZY3':chk_value8,
-        'Aqua':chk_value9,*/
-    }
-
-    var temp = {
-        'leftTopLng':leftTopLng,
-        'leftTopLat':leftTopLat,
-        'rightBottomLng':rightBottomLng,
-        'rightBottomLat':rightBottomLat,
-        'nominalResolution':nominalResolution,
-        'cloudPercent':cloudPercent,
-        'level':level,
-        'province':province,
-        'city':citys,
-        'county':county,
-        'produceTime':time1+";"+time2,
-        'satelliteID': "GF3",
-        'sensorID': JSON.stringify(sensor),
-    };
-
-
-    $.ajax({
-        url:"/product/search",
-        type:'POST',
-        data: temp,
-        dataType: 'JSON',
-        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-        success : function(data) {
-            var index = 0;
-            var html="";
-            length = data.length;
-            for(var i= 0;i < data.length;i++) {
-
-                html += "<tr>",
-                    html +="<td>" +
-                        "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"input"+ index + "\">"
-                        +"</td>";
-                html += "</td>",
-                    html += "<td id=\"satellite"+ index + "\">" + data[i].satelliteID + "</td>";
-                html += "<td>" + data[i].sensorID + "</td>";
-                html += "<td>" + data[i].produceTime + "</td>";
-                html += "<td>" + data[i].nominalResolution + "</td>";
-                html += "<td>" + data[i].cloudPercent + "</td>";
-                html += "</td>";
-                index++;
-            }
-            $('#TbData').html(html);
-            var flag1=[];
-            var sw = [];//景的左下坐标
-            var ne = [];//景的右上坐标
-            for(var i= 0;i < data.length;i++) {
-
-                sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
-                ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
-            }
-            for(var i = 0; i < sw.length; i++){
-                scene.push(new BMap.Bounds(sw[i],ne[i]));
-                flag1[i]=false;
-                draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
-            }
-
-        },
-        error : function(data) {
-            alert("查询错误");
-
-        }
-
-    });
-
-});
-var tranfer_cart=[];//前台记录的选择加入购物车的产品
-var length;
-function SendFormSubmit(){
-    var isChosen=false;
-    var temp = length + 1;
-    for(var i = 0; i < length; i++){
-        if($("#input"+ i).prop("checked")){
-            isChosen=true;
-            tranfer_cart.push($("#input"+ i).val());
-        }
-    }
-    if(!isChosen){
-        alert("请选择要加入购物车的产品！");
-        return false;
-    }
-    else {
-        return true;
-    }
-}
 //前台记录的查询条件
 
 var province=$("#province option:selected").text();
@@ -256,21 +246,9 @@ var scene=[];//景
 var sw=[];//景的左下坐标
 var ne=[];//景的右上坐标
 var flag1=[];//判断该景是否已经显示出来，flag1=true为已经显示
-//测试：
-// sw.push(new BMap.Point(118.790456,32.055491));//景1的左下坐标
-// ne.push(new BMap.Point(118.803032,32.065284));//景1的右上坐标
-// sw.push(new BMap.Point(118.785318,32.061837));//景2的左下坐标
-// ne.push(new BMap.Point(118.799044,32.070772));//景2的右上坐标
-// sw.push(new BMap.Point(113.209644,27.126003));//景3的左下坐标
-// ne.push(new BMap.Point(124.064049,38.755141));//景3的右上坐标
-// sw.push(new BMap.Point(120.928451,30.846849));//景4的左下坐标
-// ne.push(new BMap.Point(122.381837,31.621483));//景4的右上坐标
 
-//sw[i]：景i的左下坐标   ne[i]：景i的右上坐标
-for(var i = 0; i < sw.length; i++){
-    scene.push(new BMap.Bounds(sw[i],ne[i]));
-    flag1[i]=false;
-}
+
+
 
 
 //显示景
@@ -307,53 +285,32 @@ function redraw_rectangle(i) {
 var record=[];
 // var check_box=[];
 var satellite=[];
-var sensor=[];
+var sensorID=[];
 var collect_time=[];
 var productID=[];
 var sceneID=[];
+var NominalResolution=[];
+var CloudPercent=[];
 var flag2=[];//判断该条记录是否已经显示出来，flag2=true为已经显示
 
-//测试：
-// satellite.push("GF1");
-// sensor.push("PMS1");
-// collect_time.push("2018-04-21");
-// productID.push("2899361");
-// sceneID.push("4507856");
-//
-// satellite.push("GF2");
-// sensor.push("PMS2");
-// collect_time.push("2018-06-31");
-// productID.push("2899369");
-// sceneID.push("4507852");
-//
-// satellite.push("GF3");
-// sensor.push("SAR");
-// collect_time.push("2018-03-31");
-// productID.push("2899362");
-// sceneID.push("4507859");
-//
-// satellite.push("HJ1A");
-// sensor.push("CCD1");
-// collect_time.push("2018-01-31");
-// productID.push("2899366");
-// sceneID.push("4507850");
 
-for(var i = 0; i < satellite.length; i++){
-    flag2[i]=false;
-    flag3[i]=false;
-}
+// for(var i = 0; i < satellite.length; i++){
+//     flag2[i]=false;
+//     flag3[i]=false;
+// }
 
 //显示查询结果
 function resultList(index) {
 
+
     $("#result_list").append("<tr id='tr"+ index + "'></tr>");
     $("#tr"+ index).append("<td id='td"+ index + "'></td>");
-    $("#td"+ index).append("<input type='checkbox' class='select_choose' name='select' value='" + sceneID[index] + "'  id='input"+ index + "'>");
+    $("#td"+ index).append("<input type='checkbox' class='select_choose' name='select' value='" + productID[index] + "'  id='input"+ index + "'>");
     $("#tr"+ index).append("<td>" + satellite[index] + "</td>");
-    $("#tr"+ index).append("<td>" + sensor[index] + "</td>");
+    $("#tr"+ index).append("<td>" + sensorID[index] + "</td>");
     $("#tr"+ index).append("<td>" + collect_time[index] + "</td>");
-    $("#tr"+ index).append("<td>" + productID[index] + "</td>");
-    $("#tr"+ index).append("<td>" + sceneID[index] + "</td>");
+    $("#tr"+ index).append("<td>" + NominalResolution[index] + "</td>");
+    $("#tr"+ index).append("<td>" + CloudPercent[index] + "</td>");
     // var a= document.getElementById("#tr"+ index);
     // a.style.backgroundColor='#FFEC90';
 
@@ -372,16 +329,7 @@ function resultList(index) {
 
     var id_tr="tr"+ index;
     return id_tr;
-    // var id_td="td"+ index;
-    // var id_input="input"+index;
-    // $("#result_list").append("<tr id='"+ id_tr + "'></tr>");
-    // $("#"+ id_tr).append("<td id='"+ id_td + "'></td>");
-    // $("#"+ id_td).append("<input type='checkbox' class='select_choose' name='select' value='select' id='"+ id_input + "'>");
-    // $("#"+ id_tr).append("<td>" + satellite[index] + "</td>");
-    // $("#"+ id_tr).append("<td>" + sensor[index] + "</td>");
-    // $("#"+ id_tr).append("<td>" + collect_time[index] + "</td>");
-    // $("#"+ id_tr).append("<td>" + productID[index] + "</td>");
-    // $("#"+ id_tr).append("<td>" + sceneID[index] + "</td>");
+
 
 }
 
@@ -390,6 +338,142 @@ var choose_part1=true;
 
 //输入经纬度或省市区选择符合要求的景
 function SendFormInqury (){
+
+    var leftTopLng = $("#leftTopLng").val();
+    var leftTopLat = $("#leftTopLat").val();
+    var rightBottomLng = $("#rightBottomLng").val();
+    var rightBottomLat = $("#rightBottomLat").val();
+    var nominalResolution=$("#nominalResolution").val();
+    var cloudPercent=$("#cloudPercent").val();
+    var level=$("#product_level").val();
+    /*var province=$("#province option:selected").text();
+    var citys=$("#citys option:selected").text();
+    var county=$("#county option:selected").text();*/
+
+
+
+    var time1=$("#time1").val();
+    var time2=$("#time2").val();
+
+    var chk_value1 =[];//定义一个数组
+    $('input[name="GF1"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+        chk_value1.push($(this).val());//将选中的值添加到数组chk_value中
+    });
+
+    var chk_value2 =[];//定义一个数组
+    $('input[name="GF2"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+        chk_value2.push($(this).val());//将选中的值添加到数组chk_value中
+    });
+
+
+    var chk_value3 =[];//定义一个数组
+    $('input[name="GF3"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+        chk_value3.push($(this).val());//将选中的值添加到数组chk_value中
+    });
+
+
+    var chk_value4 =[];//定义一个数组
+    $('input[name="GF4"]:checked').each(function(){//遍历每一个名字为GF1的复选框，其中选中的执行函数
+        chk_value4.push($(this).val());//将选中的值添加到数组chk_value中
+    });
+
+
+    var sensor={
+        'GF1':chk_value1,
+        'GF2':chk_value2,
+        'GF3':chk_value3,
+        'GF4':chk_value4,
+    }
+
+    var temp = {
+        'leftTopLng':leftTopLng,
+        'leftTopLat':leftTopLat,
+        'rightBottomLng':rightBottomLng,
+        'rightBottomLat':rightBottomLat,
+        'nominalResolution':nominalResolution,
+        'cloudPercent':cloudPercent,
+        'level':level,
+        'province':province,
+        'city':citys,
+        'county':county,
+        'produceTime':time1+";"+time2,
+        'satelliteID': "GF3",
+        'sensorID': JSON.stringify(sensor),
+    };
+
+
+    $.ajax({
+        url:"/product/search",
+        type:'POST',
+        data: temp,
+        dataType: 'JSON',
+        async:false,
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        success : function(data) {
+            var index = 0;
+            var html="";
+            length = data.length;
+            for(var i= 0;i < data.length;i++) {
+
+                satellite.push(data[i].satelliteID);
+                sensorID.push(data[i].sensorID);
+
+                collect_time.push(data[i].produceTime);
+                productID.push(data[i].productID);
+                sceneID.push(data[i].sceneID);
+                NominalResolution.push(data[i].nominalResolution);
+                CloudPercent.push(data[i].cloudPercent);
+                // html += "<tr>",
+                //     html +="<td>" +
+                //         "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"input"+ index + "\">"
+                //         +"</td>";
+                // html += "</td>",
+                //     html += "<td id=\"satellite"+ index + "\">" + data[i].satelliteID + "</td>";
+                // html += "<td>" + data[i].sensorID + "</td>";
+                // html += "<td>" + data[i].produceTime + "</td>";
+                // html += "<td>" + data[i].nominalResolution + "</td>";
+                // html += "<td>" + data[i].cloudPercent + "</td>";
+                // html += "</td>";
+                // index++;
+
+            }
+            // $('#TbData').html(html);
+            // var flag1=[];
+            for(var i= 0;i < data.length;i++) {
+
+                sw.push(new BMap.Point(data[i].leftTopLng, data[i].rightBottomLat));//景1的左下坐标
+                ne.push(new BMap.Point(data[i].rightBottomLng, data[i].leftTopLat));//景1的右上坐标
+            }
+            // for(var i = 0; i < sw.length; i++){
+            //     scene.push(new BMap.Bounds(sw[i],ne[i]));
+            //     flag1[i]=false;
+            //     draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);
+            // }
+
+
+        },
+        error : function(data) {
+            alert("查询错误");
+
+        }
+
+    });
+
+    for(var i = 0; i < sw.length; i++){
+        scene.push(new BMap.Bounds(sw[i],ne[i]));
+        flag1[i]=false;
+    }
+    for(var i = 0; i < satellite.length; i++){
+        flag2[i]=false;
+        flag3[i]=false;
+    }
+
+    //sw[i]：景i的左下坐标   ne[i]：景i的右上坐标
+    for(var i = 0; i < sw.length; i++){
+        scene.push(new BMap.Bounds(sw[i],ne[i]));
+        flag1[i]=false;
+    }
+
     var inputSW=new BMap.Point($("#leftTopLng").val(),$("#rightBottomLat").val());
     var inputNE=new BMap.Point($("#rightBottomLng").val(),$("#leftTopLat").val());
     var inputArea=new BMap.Bounds(inputSW,inputNE);
@@ -397,7 +481,7 @@ function SendFormInqury (){
     if((($("#leftTopLng").val() !== "")&&($("#rightBottomLat").val() !== "")&&($("#rightBottomLng").val() !== "")&&($("#leftTopLat").val() !== "")  )&&(choose_part1)){
         // alert("按经纬度查询");
         for(var i = 0; i < scene.length; i++){
-            if((scene[i].containsBounds(inputArea)&&(flag1[i]==false)&&(flag2[i]==false))){
+            if(((flag1[i]==false)&&(flag2[i]==false))){
                 draw_scene[i]=draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);//显示景
                 record[i]=resultList(i);//显示查询结果
                 flag1[i]=true;
