@@ -6,25 +6,19 @@ import com.zcq.springbootobservation.Entity.UserType;
 import com.zcq.springbootobservation.Service.DataScanner;
 import com.zcq.springbootobservation.Service.ProductService;
 import com.zcq.springbootobservation.Service.UserService;
-//import com.zcq.springbootobservation.Service.WebSecurityConfig;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+//import com.zcq.springbootobservation.Service.WebSecurityConfig;
 
 
 @Controller
@@ -116,7 +110,7 @@ public class LoginController {
 
     @Autowired
     private ProductService productService;
-    @Scheduled(cron= "0 0 17 * * ?")
+    @Scheduled(cron= "0 58 10 * * ?")
     public void LoadData(){
         Date d = new Date();
         List<AllType> allTypeList = new ArrayList<AllType>();
