@@ -6,7 +6,6 @@ import com.zcq.springbootobservation.Entity.AllType;
 import com.zcq.springbootobservation.Entity.OrderType;
 import com.zcq.springbootobservation.Service.OrderService;
 import com.zcq.springbootobservation.Service.ProductService;
-import com.zcq.springbootobservation.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +27,7 @@ import java.util.regex.Pattern;
 public class OrderController {
 
     public final static String SESSION_KEY = "user";
+
     @RequestMapping("/home")
     public String welcome(ModelMap model)
     {
@@ -43,15 +43,34 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @RequestMapping(value="/orderList")
-    public String getOrderList(HttpServletResponse response, Model model){
-        List<OrderType> tempList = orderService.getAll();
-
+    public void getOrderList(HttpSession session,HttpServletResponse response, Model model,String test){
+        String userName = (String)session.getAttribute(SESSION_KEY);
+        List<OrderType> tempList = orderService.getListByUserId(userName);
+        System.out.println(test);
         model.addAttribute("orderList", tempList);
-        return "orderList";
+        String str = "";
+        ObjectMapper x = new ObjectMapper();
+
+        try {
+            str = x.writeValueAsString(tempList);    //将java类对象转换为json字符串
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            response.setContentType("text/xml;charset=UTF-8");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/order")
     public String order(HttpSession session,Model model){
+
 
         String userName = (String)session.getAttribute(SESSION_KEY);
         List<OrderType> tempList = orderService.getListByUserId(userName);
@@ -65,10 +84,10 @@ public class OrderController {
     public String orderInfo(HttpSession session,Model model){
 
         String userName = (String)session.getAttribute(SESSION_KEY);
-        List<OrderType> tempList = orderService.getListByUserId(userName);
+        //List<OrderType> tempList = orderService.getListByUserId(userName);
 
         model.addAttribute("currentUser",userName);
-        model.addAttribute("CurrentUserOrderList", tempList);
+        //model.addAttribute("CurrentUserOrderList", tempList);
         return "orderInfo";
     }
 
@@ -182,26 +201,26 @@ public class OrderController {
         }
     }
 
-    @Autowired
-    private UserService userService;
-    @RequestMapping(value="/orderToDataBases")
-    public void setOrderToDataBases(String orderId,String productId,String username,HttpServletResponse response)
-    {
-        System.out.println(orderId+ " " + productId+" "+username);
-        OrderType orderType=new OrderType();
-        orderType.setOrderId(orderId);
-        orderType.setProductID(productId);
-        orderType.setUsername(username);
-        orderService.orderToDataBases(orderType);
+//    @Autowired
+//    private UserService userService;
+//    @RequestMapping(value="/orderToDataBases")
+//    public void setOrderToDataBases(String orderId,String productId,String username,HttpServletResponse response)
+//    {
+//        System.out.println(orderId+ " " + productId+" "+username);
+//        OrderType orderType=new OrderType();
+//        orderType.setOrderId(orderId);
+//        orderType.setProductID(productId);
+//        orderType.setUsername(username);
+//        orderService.orderToDataBases(orderType);
+//
+//    }
 
-    }
-
-    @RequestMapping(value="/currentOrderList")
-    public String getCurrentUserOrderList(HttpSession session, Model model){
-        String userName = (String)session.getAttribute(SESSION_KEY);
-        List<OrderType> tempList = orderService.getListByUserId(userName);
-
-        model.addAttribute("CurrentUserOrderList", tempList);
-        return "currentOrderList";
-    }
+//    @RequestMapping(value="/currentOrderList")
+//    public String getCurrentUserOrderList(HttpSession session, Model model){
+//        String userName = (String)session.getAttribute(SESSION_KEY);
+//        List<OrderType> tempList = orderService.getListByUserId(userName);
+//
+//        model.addAttribute("CurrentUserOrderList", tempList);
+//        return "currentOrderList";
+//    }
 }

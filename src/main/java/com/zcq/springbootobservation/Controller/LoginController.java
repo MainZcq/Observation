@@ -13,10 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 //import com.zcq.springbootobservation.Service.WebSecurityConfig;
 
@@ -29,6 +30,7 @@ public class LoginController {
     public String index(){
         return "index";
     }
+
     @RequestMapping("/login")
     public String login( HttpSession session,Model model){
         String currentuser = (String)session.getAttribute(SESSION_KEY);
@@ -48,20 +50,24 @@ public class LoginController {
     }
 
     @RequestMapping("/shoppingCart")
-    public String shoppingCart(){
+    public String shoppingCart( HttpSession session,Model model){
+        String currentuser = (String)session.getAttribute(SESSION_KEY);
+        model.addAttribute("currentUser",currentuser);
+
         return "shoppingCart";
     }
 
     @Autowired
     private UserService userService;
-    @RequestMapping("/userList")
-    public String index(HttpServletRequest httpServletRequest,Model model){
+//    @RequestMapping("/userList")
+//    public String index(HttpServletRequest httpServletRequest,Model model){
+//
+//        List<UserType> list=userService.getAll();
+//        model.addAttribute("userList", list);
+//        return "userList";
+//    }
 
-        List<UserType> list=userService.getAll();
-        model.addAttribute("userList", list);
-        return "userList";
-    }
-
+    //登陆验证
     @RequestMapping("/loginVerify")
     public String loginVerify(String username,String password,String identification, HttpSession session,Model model) {
 
@@ -69,7 +75,7 @@ public class LoginController {
             userType.setUsername(username);
             userType.setPassword(password);
             boolean verify = userService.verifyLogin(userType);
-            Map<String, Object> map = new HashMap<>();
+
             if (!verify) {
 
                 return "err";
@@ -77,14 +83,14 @@ public class LoginController {
             // 设置session
             session.setAttribute(SESSION_KEY, username);
 
-            List<UserType> userList = userService.getAll();
-            model.addAttribute("userList", userList);
-            return "index";
+            model.addAttribute("currentUser",username);
+            return "/guide/dataApply";
 
 
     }
 
 
+    //注册
     @RequestMapping("/registerDB")
     public String  registerToDataBase(UserType userType,Model model){
 
@@ -101,6 +107,7 @@ public class LoginController {
 
     }
 
+    //注销
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         // 移除session
@@ -108,14 +115,16 @@ public class LoginController {
         return "/login";
     }
 
+    //自动入库
     @Autowired
     private ProductService productService;
-    @Scheduled(cron= "0 58 10 * * ?")
+    @Scheduled(cron= "0 0 17 * * ?")
     public void LoadData(){
         Date d = new Date();
         List<AllType> allTypeList = new ArrayList<AllType>();
+        ArrayList<String> addressList = productService.addressList();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        allTypeList = DataScanner.scanner();
+        allTypeList = DataScanner.scanner(addressList);
         System.out.println(allTypeList.size());
         for(int i = 0; i < allTypeList.size();i++)
             try {

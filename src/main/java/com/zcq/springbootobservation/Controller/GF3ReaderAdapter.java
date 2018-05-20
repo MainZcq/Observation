@@ -15,7 +15,7 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
     @Autowired
     private ProductService productService;
     @Override
-    public AllType fileReader(String fileName) {
+    public AllType fileReader(String fileName,String path) {
 
         AllType allType = new AllType();
 
@@ -25,7 +25,7 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
             JAXBContext jaxbContext = JAXBContext.newInstance(GF3Type.class);
             Unmarshaller jaxbUnmarshal = jaxbContext.createUnmarshaller();
             GF3Type gf3 = (GF3Type)jaxbUnmarshal.unmarshal(fXmlFile);
-
+            //System.out.println(fileName);
             allType.setProductID(gf3.getProductID());
             allType.setSatelliteID(gf3.getSatellite());
             allType.setSensorID(gf3.getSensorID());
@@ -39,8 +39,8 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
             allType.setLeftTopLng(gf3.getTopLeftLng());
             allType.setRightBottomLat(gf3.getBottomRightLat());
             allType.setRightBottomLng(gf3.getBottomRightLng());
-
-            System.out.println("productID: "+gf3.getProductID());
+            allType.setAddress(path);
+            System.out.println("productID: "+allType.getAddress());
 
 
 

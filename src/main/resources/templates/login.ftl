@@ -53,7 +53,7 @@
 
     </div>
 </header>
-<main role="main" class="main_color">
+<main role="main">
     <div class="reg_div2">
         <p class="title">用户登陆</p>
         <form action="/loginVerify" method="post" onsubmit = "return login_check()">

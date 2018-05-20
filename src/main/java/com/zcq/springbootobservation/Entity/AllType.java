@@ -10,6 +10,7 @@ public class AllType {
     private String sceneID;
     //采集时间
     private String produceTime;
+    private String produceTime1;
     private String level;
     private String nominalResolution;
     private String  imagingMode;
@@ -23,6 +24,24 @@ public class AllType {
     private String leftTopLat;
     private String rightBottomLng;
     private String rightBottomLat;
+    //路径
+    private String address;
+
+    public String getProduceTime1() {
+        return produceTime1;
+    }
+
+    public void setProduceTime1(String produceTime1) {
+        this.produceTime1 = produceTime1;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getProductID() {
         return productID;

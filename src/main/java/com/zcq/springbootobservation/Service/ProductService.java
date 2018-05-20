@@ -7,6 +7,7 @@ import com.zcq.springbootobservation.Mapper.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,4 +21,5 @@ public class ProductService {
     public AllType getRecordById(String Id){return productTypeDao.getRecordById(Id);}
     public List<AllType> search(AllType allType){return productTypeDao.search(allType);}
     public void insert(AllType allType){productTypeDao.insert(allType);}
+    public ArrayList<String> addressList(){return productTypeDao.addressList();}
 }

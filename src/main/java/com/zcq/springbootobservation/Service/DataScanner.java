@@ -5,7 +5,6 @@ package com.zcq.springbootobservation.Service;
 import com.zcq.springbootobservation.Controller.GF124ReaderAdapter;
 import com.zcq.springbootobservation.Controller.GF3ReaderAdapter;
 import com.zcq.springbootobservation.Entity.AllType;
-import com.zcq.springbootobservation.Entity.ProductType;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
@@ -22,86 +21,106 @@ public class DataScanner{
     private static final String GF1 = "GF1";
     private static final String GF4 = "GF4";
 
-    public static List<AllType>  scanner(){
+    public static List<AllType>  scanner(ArrayList<String> addressList){
         File f = new File("e:\\realease");
 
         //扫描解压tar.gz
         ArrayList<File> tarGzList = new ArrayList();
-        showTarList(f,tarGzList);
-        System.out.println(tarGzList.size());
-
-        for (File ff : tarGzList) {
-            try {
-                String path = ff.getAbsolutePath();
-                unCompressArchiveGz(path);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        System.out.println("解压完成");
-        //扫描.xml
         ArrayList<File> al = new ArrayList();
-        showList(f,al);
-        System.out.println(al.size());
-
+        showTarList(f,tarGzList);
         List<AllType> allTypeList = new ArrayList<AllType>();
-        try {
-            ProductType productType = new ProductType();
-            for (File ff : al) {
-                InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(ff), "GBK");//考虑到编码格式
-                BufferedReader bufferedReader = new BufferedReader(read);
-                String lineTxt = null;
-                int c = 0;
-                System.out.println(ff.getAbsolutePath());
-                String path = ff.getAbsolutePath();
-                ReaderAdapter readerAdapter = new GF3ReaderAdapter();
+        System.out.println("数据个数为："+ tarGzList.size());
 
-                Pattern patternGF3 = Pattern.compile(GF3);
-                Matcher matcherGF3 = patternGF3.matcher(path);
-                if (matcherGF3.find()) {
-                    AllType allType = new AllType();
-                    while ((lineTxt = bufferedReader.readLine()) != null) {
-                        Pattern satellite = Pattern.compile("<product>");
-                        Matcher ms = satellite.matcher(lineTxt);
-                        if (ms.find()) {
-                            System.out.println("GF3已找到");
+        ArrayList<String> tarGzPathList = new ArrayList<>();
+        String path;
+        for (File tar : tarGzList) {
+            circle:
+            try {
+                String Gzpath = tar.getAbsolutePath();
+                tarGzPathList.add(tar.getAbsolutePath());
+                for(String address:addressList)
+                    if(address.equals(Gzpath)) {
+                        System.out.println("当前文件"+Gzpath+"已入库");
+                        break circle;
+                    }
+                path = tar.getAbsolutePath();
+                System.out.println("正在解压并入库： "+path);
+                unCompressArchiveGz(Gzpath);
+                //扫描.xml
+                showList(f,al);
+
+                try {
+                    for (File xml : al) {
+                        InputStreamReader read = new InputStreamReader(
+                                new FileInputStream(xml), "GBK");//考虑到编码格式
+                        BufferedReader bufferedReader = new BufferedReader(read);
+                        String lineTxt = null;
+
+                        String XmlPath = xml.getAbsolutePath();
+                        ReaderAdapter readerAdapter = new GF3ReaderAdapter();
+
+                        Pattern patternGF3 = Pattern.compile(GF3);
+                        Matcher matcherGF3 = patternGF3.matcher(XmlPath);
+                        if (matcherGF3.find()) {
+                            AllType allType = new AllType();
+                            while ((lineTxt = bufferedReader.readLine()) != null) {
+                                Pattern satellite = Pattern.compile("<product>");
+                                Matcher ms = satellite.matcher(lineTxt);
+                                if (ms.find()) {
+                                    System.out.println("GF3已找到");
+                                    try {
+                                        allType = readerAdapter.fileReader
+                                                (xml.getAbsolutePath(),path);
+                                        allTypeList.add(allType);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                        }
+
+                        //GF124数据入库
+                        ReaderAdapter readerAdapter1 = new GF124ReaderAdapter();
+                        Pattern patternGF2 = Pattern.compile(GF2);
+                        Matcher matcherGF2 = patternGF2.matcher(XmlPath);
+                        Pattern patternGF1 = Pattern.compile(GF1);
+                        Matcher matcherGF1 = patternGF1.matcher(XmlPath);
+                        Pattern patternGF4 = Pattern.compile(GF4);
+                        Matcher matcherGF4 = patternGF4.matcher(XmlPath);
+                        if (matcherGF2.find() || matcherGF1.find() || matcherGF4.find()) {
+                            AllType allType = new AllType();
                             try {
-                                allType = readerAdapter.fileReader
-                                        (ff.getAbsolutePath());
+                                allType=readerAdapter1.fileReader
+                                        (xml.getAbsolutePath(),path);
                                 allTypeList.add(allType);
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
+                        if(read!=null)
+                            read.close();
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("发生错误！");
+                }
+
+                for(File delXml:al){
+                    if((delXml.getName()).endsWith(".xml")){
+                        delXml.delete();
                     }
 
                 }
-
-                //GF124数据入库
-                ReaderAdapter readerAdapter1 = new GF124ReaderAdapter();
-                Pattern patternGF2 = Pattern.compile(GF2);
-                Matcher matcherGF2 = patternGF2.matcher(path);
-                Pattern patternGF1 = Pattern.compile(GF1);
-                Matcher matcherGF1 = patternGF1.matcher(path);
-                Pattern patternGF4 = Pattern.compile(GF4);
-                Matcher matcherGF4 = patternGF4.matcher(path);
-                if (matcherGF2.find() || matcherGF1.find() || matcherGF4.find()) {
-                    AllType allType = new AllType();
-                    try {
-                        allType=readerAdapter1.fileReader
-                                (ff.getAbsolutePath());
-                        allTypeList.add(allType);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
+                System.out.println("清空前al的size为： "+al.size());
+                al.clear();
+                System.out.println("清空前al的size为： "+al.size());
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            throw new RuntimeException("发生错误！");
+
         }
+        System.out.println("解压完成");
 
         return allTypeList;
     }
@@ -119,8 +138,9 @@ public class DataScanner{
                 showList(p, al);
             }
             else{
-                if((p.getName()).endsWith(".xml"))
+                if((p.getName()).endsWith(".xml")){
                     al.add(p);
+                }
                 else{
                     if(!(p.getName()).endsWith(".tar.gz") && p.exists())
                         p.delete();

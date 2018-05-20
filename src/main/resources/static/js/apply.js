@@ -59,7 +59,7 @@ var flag1=[];//判断该景是否已经显示出来，flag1=true为已经显示
 //data_apply.html//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var map = new BMap.Map("baiduMap", {enableMapClick:false});  //创建Map实例
 var point = new BMap.Point(118.791318,32.065498);  //创建Point位置实例，南京
-map.centerAndZoom(point, 15);  //设置地图中心点及缩放级别
+map.centerAndZoom(point, 8);  //设置地图中心点及缩放级别
 map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 // var b = new BMap.Bounds(new BMap.Point(116.027143, 39.772348),new BMap.Point(116.832025, 40.126349)); // 范围 左下角，右上角的点位置
 
@@ -80,16 +80,10 @@ var drawingManager = new BMapLib.DrawingManager(map, {
     drawingToolOptions: {
         anchor: BMAP_ANCHOR_TOP_LEFT, //位置
         offset: new BMap.Size(570, 0), //偏离值
-        drawingModes: [BMAP_DRAWING_CIRCLE, BMAP_DRAWING_POLYGON, BMAP_DRAWING_RECTANGLE],
+        drawingModes: [BMAP_DRAWING_RECTANGLE],
     },
-    circleOptions: styleOptions, //圆的样式
-     // polylineOptions: styleOptions, //线的样式
-    polygonOptions: styleOptions, //多边形的样式
     rectangleOptions: styleOptions //矩形的样式
 });
-
-
-
 
 //显示景
 function draw_rectangle(SWlng,SWlat,NElng,NElat) {
@@ -329,6 +323,7 @@ function SendFormInqury (){
                         flag2[i]=true;
                     }
                 }
+				$("#collapse2").addClass("in");
                 // document.form1.submit();
             }
             else if((($("#province option:selected").text())!=="请选择省份" )&&(!choose_part1)){
@@ -341,6 +336,7 @@ function SendFormInqury (){
                         flag2[j] = true;
                     }
                 }
+				$("#collapse2").addClass("in");
                 // document.form1.submit();
             }
             else{
@@ -353,6 +349,7 @@ function SendFormInqury (){
                         flag2[k]=true;
                     }
                 }
+				$("#collapse2").addClass("in");
                 // document.form1.submit();
             }
 
@@ -368,20 +365,28 @@ function SendFormInqury (){
     // return true;
 }
 
-
-
 //添加鼠标绘制工具监听事件，用于获取绘制结果
 drawingManager.addEventListener('overlaycomplete', (function (e) {
     overlays.push(e.overlay);
+	var rectangle=e.overlay.getBounds();
+    var sw_lng=rectangle.getSouthWest().lng;
+    var sw_lat=rectangle.getSouthWest().lat;
+    var ne_lng=rectangle.getNorthEast().lng;
+    var ne_lat=rectangle.getNorthEast().lat;
     // queryScene();
     for(var i = 0; i < scene.length; i++){
-        if((scene[i].containsBounds(e.overlay.getBounds())&&(flag1[i]==false)&&(flag2[i]==false))){
+        if((scene[i].containsBounds(rectangle)&&(flag1[i]==false)&&(flag2[i]==false))){
             draw_scene[i]=draw_rectangle(sw[i].lng,sw[i].lat,ne[i].lng,ne[i].lat);//显示景
             record[i]=resultList(i);//显示查询结果
             flag1[i]=true;
             flag2[i]=true;
         }
     }
+	$("#leftTopLng").val(sw_lng);
+    $("#rightBottomLat").val(sw_lat);
+    $("#rightBottomLng").val(ne_lng);
+    $("#leftTopLat").val(ne_lat);
+	$("#collapse2").addClass("in");
 }));
 
 //自定义控件：清除////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

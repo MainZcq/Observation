@@ -56,40 +56,10 @@ var checkStatus=[];//审核状态
 var proceedStatus=[];//处理状态
 var orderStep=[];//订单步骤
 var downloadAddr=[];//下载地址
-
-
-
-// 测试：
-// orderName.push("TestOrder1");
-// orderID.push("107608991");
-// satellite.push("GF1");
-// sensor.push("SAR");
-// sceneID.push("4507856");
-// productID.push("2899361");
-// productLevel.push("1A级产品");
-// priority.push("6级");
-// orderTime.push("2018-02-28 ");
-// checkStatus.push("通过审核");
-// proceedStatus.push("完成");
-// orderStep.push("已结束");
-// downloadAddr.push("PMI 地址1");
+// $(window).load(function() {
 //
-// orderName.push("Order2");
-// orderID.push("107608992");
-// satellite.push("GF2");
-// sensor.push("SAR");
-// sceneID.push("4507856");
-// productID.push("2899362");
-// productLevel.push("1A级产品");
-// priority.push("6级");
-// orderTime.push("2018-02-28 ");
-// checkStatus.push("通过审核");
-// proceedStatus.push("完成");
-// orderStep.push("已结束");
-// downloadAddr.push("PMI 地址1");
-//
-// orderName.push("Order-2018.3.8");
-// orderID.push("107608993");
+//     alert("test");
+// });
 
 //显示当前订单查询结果
 function insertCurrent(index) {

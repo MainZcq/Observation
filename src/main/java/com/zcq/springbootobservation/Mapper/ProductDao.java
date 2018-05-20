@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -17,10 +18,22 @@ public interface ProductDao {
             " where products.productID = #{0}")
     AllType getRecordById(String Id);
 
-    @Select("select * from products where satelliteID = #{satelliteID} and sensorID=#{sensorID} and NominalResolution like ifnull(#{nominalResolution},'%%') and cloudPercent like ifnull(#{cloudPercent},'%%')" +
-            " and level=#{level} and leftTopLng like ifnull(#{leftTopLng},'%%') and leftTopLat like ifnull(#{leftTopLat},'%%')  and rightBottomLng like ifnull(#{rightBottomLng},'%%') and rightBottomLat like ifnull(#{rightBottomLat},'%%') ")
+    @Select("select * from products where satelliteID = #{satelliteID} and " +
+            "sensorID=#{sensorID} and NominalResolution like ifnull(#{nominalResolution},'%%') " +
+            "and cloudPercent like ifnull(#{cloudPercent},'%%')" +
+            " and level=#{level} and leftTopLng like ifnull(#{leftTopLng},'%%') " +
+            "and leftTopLat like ifnull(#{leftTopLat},'%%')  " +
+            "and rightBottomLng like ifnull(#{rightBottomLng},'%%') " +
+            "and rightBottomLat like ifnull(#{rightBottomLat},'%%') " +
+            " and produceTime between #{produceTime} and #{produceTime1}")
     List<AllType> search(AllType allType);
 
-    @Insert("insert  ignore  into products values (#{productID},#{satelliteID},#{sensorID},#{produceTime},#{nominalResolution},#{imagingMode},#{level},#{cloudPercent},#{leftTopLng},#{leftTopLat},#{rightBottomLng},#{rightBottomLat},null,null,null,#{sceneID})")
+    @Insert("insert  ignore  into products values (#{productID},#{satelliteID}," +
+            "#{sensorID},#{produceTime},#{nominalResolution},#{imagingMode},#{level}," +
+            "#{cloudPercent},#{leftTopLng},#{leftTopLat},#{rightBottomLng},#{rightBottomLat}" +
+            ",null,null,null,#{sceneID},#{address})")
     void insert(AllType allType);
+
+    @Select("select address from products")
+    ArrayList<String> addressList();
 }

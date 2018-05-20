@@ -54,7 +54,7 @@ for(var i = 0; i < productID.length; i++){
 
 var length;
 
-var tranfer_delete=[];//前台记录的用户从购物车中删除的产品id
+//var tranfer_delete=[];//前台记录的用户从购物车中删除的产品id
 function SendFormCart2(){
     var isChosen=false;
     // var del=[];
@@ -72,12 +72,34 @@ function SendFormCart2(){
     else {
         if(confirm("确认要从购物车中删除该数据吗?")){
             // alert("点击了确认按钮");
+            var productIDList = [];
             for(var j = 0; j < productID.length; j++){
                 if($("#inputCart"+ j).prop("checked")){
+                    productIDList.push($("#inputCart"+ j).val());
                     $("#"+ piece[j]).remove();
-                    tranfer_delete.push(productID[i]);
+
+                    //tranfer_delete.push(productID[i]);
                 }
             }
+            var temp = {
+                'productIDList': JSON.stringify(productIDList)
+            }
+            $.ajax({
+                url:"/product/deleteRecords",
+                type:'POST',
+                data: temp,
+                dataType: 'text',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                success : function(data) {
+
+
+                },
+                error : function(data) {
+                    alert("删除错误");
+
+                }
+
+            });
         }
     }
 }
@@ -103,7 +125,7 @@ $(window).load(function(){
         'productIDList': JSON.stringify(productIDList)
     }
     $.ajax({
-        url:"/product/searchByID",
+        url:"/product/getShoppingOrderList",
         type:'POST',
         data: temp,
         dataType: 'json',
@@ -112,9 +134,11 @@ $(window).load(function(){
             length = data.length;
             var index = 0;
             var html="";
-            for(var i= 0;i < data.length;i++) {
 
-                html += "<tr>",
+            for(var i= 0;i < data.length;i++) {
+                productID.push(data[i].productID);
+                piece.push("trCart"+ index );
+                html += "<tr   id='trCart"+ index + "'>";
                     html +="<td>" +
                         "<input type=\"checkbox\" name=\"select\" value=\"" +data[i].productID+"\" class =\"select_choose\" id=\"inputCart"+ index + "\">"
                         +"</td>";
@@ -139,14 +163,14 @@ $(window).load(function(){
 
     });
 });
-var tranfer_order=[];//前台记录的用户从购物车中选择的产品id
+//var tranfer_order=[];//前台记录的用户从购物车中选择的产品id
 
 function SendFormCart(){
     var isChosen=false;
     for(var i = 0; i < length; i++){
         if($("#inputCart"+ i).prop("checked")){
             isChosen=true;
-            tranfer_order.push($("#inputCart"+ i).val());
+            //tranfer_order.push($("#inputCart"+ i).val());
         }
     }
     if(!isChosen){

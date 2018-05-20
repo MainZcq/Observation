@@ -87,9 +87,9 @@
                 </li>
                 <li>
                     <span>订单描述：</span>
-                    <textarea id="order_intro" rows="4" cols="61" name="order_name" style="resize:none"></textarea>
+                    <textarea id="order_intro" rows="4" cols="61" name="order_intro" style="resize:none"></textarea>
                 </li>
-                </div>
+                <#--</div>-->
                 <li>
                     <button type="submit" class="btn btn-success collapse_btn" id="confirm_order">确认订单</button>
                 </li>

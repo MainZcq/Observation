@@ -227,27 +227,31 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <#list CurrentUserOrderList as order>
                 <tr>
-                    <td>【${order.orderName}】</td>
+                    <td style="line-height: 90px">test</td>
                     <td>
-                        <div>
-                        <div>订单号：${order.orderId}</div>
-                        <div>卫星：${order.satelliteID}</div>
-                        <div>传感器：${order.sensorID}</div>
-                        <div>景序列号：${order.username}</div>
-                        </div>
-                        <div>
-                        <div>产品号：${order.productID}</div>
-                        <div>产品级别：${order.level}</div>
-                        <div>优先级：${order.leftTopLng}</div>
-                        <div>订购时间：${order.produceTime}</div>
+                        <div class="blank2">
+                            <div class="product_info1">
+                                订单号: ${order.orderId}<br>
+                                卫星: ${order.satelliteID}<br>
+                                传感器：${order.sensorID}<br>
+                                景序列号：4507856
+                            </div>
+                            <div class="product_info2">
+                                产品号：${order.productId}<br>
+                                产品级别： ${order.level}级产品<br>
+                                优先级： 6级<br>
+                                订购时间：2018-02-28
+                            </div>
                         </div>
                     </td>
                     <td>通过审核</td>
                     <td>完成</td>
-                    <td>已结束</td>
-                    <td><a href='#'>PMI</td>
+                    <td>已结束 </td>
+                    <td><a href='#'>PMI 地址1 </td>
+
                 </tr>
                 </#list>
                 </tbody>
@@ -302,6 +306,9 @@
         }
 
     });
+
+
+
 </script>
 <!-- Holder.js for project development only -->
 <script src="js/vendor/holder.js"></script>

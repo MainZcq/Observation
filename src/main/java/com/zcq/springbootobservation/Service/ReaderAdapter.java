@@ -4,5 +4,5 @@ import com.zcq.springbootobservation.Entity.AllType;
 
 public interface ReaderAdapter {
 
-    public AllType fileReader(String fileName);
+    public AllType fileReader(String fileName,String path);
 }

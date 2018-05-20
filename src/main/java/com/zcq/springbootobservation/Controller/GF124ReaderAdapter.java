@@ -16,7 +16,7 @@ public class GF124ReaderAdapter implements ReaderAdapter  {
     ProductService productService = new ProductService();
 
     @Override
-    public AllType fileReader(String fileName) {
+    public AllType fileReader(String fileName,String path) {
 
         AllType allType = new AllType();
 
@@ -32,19 +32,25 @@ public class GF124ReaderAdapter implements ReaderAdapter  {
             allType.setSceneID(gf2.getSceneID());
             String temp = gf2.getProductLevel();
 
-            String s = temp.substring(5,temp.length());
-            System.out.println(s);
-            allType.setLevel(gf2.getProductLevel());
+            String s = temp.substring(5,temp.length()-1);
+
+            allType.setLevel(s);
             allType.setNominalResolution("");
             allType.setImagingMode(null);
-            allType.setProduceTime(gf2.getProduceTime());
+
+            String time = gf2.getProduceTime();
+            String t = time.substring(0,10);
+            //System.out.println(t);
+            allType.setProduceTime(t);
+
             allType.setCloudPercent(gf2.getCloudPercent());
             allType.setLeftTopLat(gf2.getTopLeftLatitude());
             allType.setLeftTopLng(gf2.getTopLeftLongitude());
             allType.setRightBottomLat(gf2.getBottomRightLatitude());
             allType.setRightBottomLng(gf2.getBottomRightLongitude());
 
-            System.out.println("productID: "+gf2.getProductID());
+            allType.setAddress(path);
+            System.out.println("数据地址: "+allType.getAddress());
 
 
 

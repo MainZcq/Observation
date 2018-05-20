@@ -79,40 +79,44 @@
                         <button type="button" class="btn btn-primary collapse_btn"  id="findbyD">按行政区查询</button>
 
                         <div class="box1">
-                            <div class="part1">
+                            <div class="part1" style="height: 210px;">
                                 <div class="mod1">
                                     <label>左上经度：</label>
                                     <input type="text" name="RightupJ" value="" id="leftTopLng" class="input1">
+								</div>
+                                <div class="mod1">
                                     <label>左上纬度：</label>
                                     <input type="text" name="RightupW" value="" id="leftTopLat" class="input1">
                                 </div>
                                 <div class="mod1">
                                     <label>右下经度：</label>
                                     <input type="text" name="LeftdownJ" value="" id="rightBottomLng" class="input1">
+								</div>
+                                <div class="mod1">
                                     <label>右下纬度：</label>
                                     <input type="text" name="LeftdownW" value="" id="rightBottomLat" class="input1">
                                 </div>
-                                <p class="box1_p">单位：度。  实例： 左上角经度：120.111    左上纬度：89.675</p>
+                                <p class="box1_p">单位：度。  实例： 左上角经度：120.111213    左上纬度：89.675340</p>
                             </div>
-                            <div class="part2" style="display: none">
+                            <div class="part2" style="display: none; height: 120px">
                                 <div class="mod1">
                                     <label>省/市/自治区：</label>
-                                    <select id="province" name="province" onchange="doProvAndCityRelation();" class="input2">　　　　　　　
+                                    <select id="province" name="province" onchange="doProvAndCityRelation();" class="input1">　　　　　　　
                                         <option id="choosePro"value="-1">请选择省份</option>　　　　　
                                     </select>
-                                    <!--<select id="cmbProvince" name="cmbProvince" class="input2"></select>-->
+                                    <!--<select id="cmbProvince" name="cmbProvince" class="input1"></select>-->
                                 </div>
                                 <div class="mod1">
                                     <label>地级市/区：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                    <!--<select id="cmbCity" name="cmbCity" class="input2"></select>-->
-                                    <select id="citys" name="city" onchange="doCityAndCountyRelation();" class="input2">　　　　　　　　
+                                    <!--<select id="cmbCity" name="cmbCity" class="input1"></select>-->
+                                    <select id="citys" name="city" onchange="doCityAndCountyRelation();" class="input1">　　　　　　　　
                                         <option id='chooseCity' value='-1'>请选择城市</option>　　　　　　
                                     </select>
                                 </div>
                                 <div class="mod1">
                                     <label>县级市/县/区：</label>
-                                    <!--<select id="cmbArea" name="cmbArea" class="input2"></select>-->
-                                    <select id="county" name="county" onchange="doCounty();" class="input2">　　　　　　　
+                                    <!--<select id="cmbArea" name="cmbArea" class="input1"></select>-->
+                                    <select id="county" name="county" onchange="doCounty();" class="input1">　　　　　　　
                                         <option id='chooseCounty' value='-1'>请选择区/县</option>　　　　　
                                     </select>
                                 </div>
@@ -122,17 +126,17 @@
                         <div class="box2">
                             <div class="mod1">
                                 <label>分辨率≤：</label>
-                                <input type="text" name="nominalResolution" value="" id="nominalResolution" class="input2">
+                                <input type="text" name="nominalResolution" value="" id="nominalResolution" class="input1">
                                 <label>m</label>
                             </div>
                             <div class="mod1">
                                 <label>云量≤：&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                <input type="text" name="cloudPercent" value="" id="cloudPercent" class="input2">
+                                <input type="text" name="cloudPercent" value="" id="cloudPercent" class="input1">
                                 <label>%</label>
                             </div>
                             <div class="mod1">
                                 <label>产品级别：</label>
-                                <select id="product_level" name="level" value="1" class="input2">
+                                <select id="product_level" name="level" value="1" class="input1">
                                     <option value="0" selected>零级（相对辐射校验产品）</option>
                                     <option value="3" selected>三级（相对辐射校验产品）</option>
                                     <option value="2" selected>二级（相对辐射校验产品）</option>
@@ -142,10 +146,11 @@
                             </div>
                             <div class="mod1">
                                 <label>采集时间：</label>
-                                <input type="date" name="time" value="" id="time1" class="input3">
+                                <input type="date" name="time" value="" id="time1" class="input1">
                                 <span>至</span>
-                                <input type="date" name="time" value="" id="time2" class="input3">
                             </div>
+							<input type="date" name="time" value="" id="time2" class="input1" style="margin-left: 83px; margin-top: 10px">
+                           
 
                         </div>
 
@@ -157,9 +162,8 @@
                                 <input type="checkbox" name="GF1" value="PMS1"><span>PMS1</span>
                                 <input type="checkbox" name="GF1" value="PMS2"><span>PMS2</span>
                                 <input type="checkbox" name="GF1" value="WFV1"><span>WFV1</span>
-                                <input type="checkbox" name="GF1" value="WFV2"><span>WFV2</span>
-                                <input type="checkbox" name="GF1" value="WFV3"
-                                       style="margin-left: 72px; margin-top: 10px"><span>WFV3</span>
+                                <input type="checkbox" name="GF1" value="WFV2" style="margin-left: 72px; margin-top: 10px"><span>WFV2</span>
+                                <input type="checkbox" name="GF1" value="WFV3"><span>WFV3</span>
                                 <input type="checkbox" name="GF1" value="WFV4"><span>WFV4</span>
                             </div>
 
@@ -181,35 +185,10 @@
                                 <input type="checkbox" name="GF4" value="PMS" ><span>PMS</span>
                             </div>
 
-                           <#-- <div class="mod1">
-                                <b class="box3_b">HJ1A：&nbsp;&nbsp;</b>
-                                <input type="checkbox" name="HJ1A" value="CCD1" ><span>CCD1</span>
-                                <input type="checkbox" name="HJ1A" value="CCD2" ><span>CCD2</span>
-                                <input type="checkbox" name="HJ1A" value="HSI" ><span>HSI</span>
-                            </div>
-
-                            <div class="mod1">
-                                <b class="box3_b">HJ1B：&nbsp;&nbsp;</b>
-                                <input type="checkbox" name="HJ1B" value="CCD1" ><span>CCD1</span>
-                                <input type="checkbox" name="HJ1B" value="CCD2" ><span>CCD2</span>
-                                <input type="checkbox" name="HJ1B" value="IRS" ><span>IRS</span>
-                            </div>
-
-                            <div class="mod1">
-                                <b class="box3_b">Terra：&nbsp;&nbsp;</b>
-                                <input type="checkbox" name="Terra" value="MODIS" ><span>MODIS</span>
-                            </div>
-
-                            <div class="mod1">
-                                <b class="box3_b">ZY3：&nbsp;&nbsp;&nbsp;&nbsp;</b>
-                                <input type="checkbox" name="ZY3" value="MUX" ><span>MUX</span>
-                                <input type="checkbox" name="ZY3" value="NAD" ><span>NAD</span>
-                                <input type="checkbox" name="ZY3" value="TLC" ><span>TLC</span>
-                            </div>-->
-
+                          
                         </div>
 
-                        <button type="submit" class="btn btn-success submit_btn" id="findProduct" onclick="SendFormInqury()">产品查询</button>
+                        <button type="submit" class="btn btn-success submit_btn1" id="findProduct" onclick="SendFormInqury()">产品查询</button>
 
                     </div>
                 </div>
@@ -223,27 +202,32 @@
                         <a data-toggle="collapse" href="#collapse2">产品列表</a>
                     </h4>
                 </div>
-                <div id="collapse2" class="panel-collapse collapse in">
+                <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body" style="height: 800px">
 
 
                         <form  id="form2" name="form2" action="/shoppingCart" onSubmit="return SendFormSubmit()">
                             <button type="submit" class="btn btn-success submit_btn2" id="submitOrder">加入购物车</button>
-
+                            <!--<div class="box5">-->
+                                <!--<div class="mod1">-->
+                                    <!--<div id="pageDiv"></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+							
                             <div class="box6">
                                 <!--<div class="mod1">-->
                                 <table class="bordered" id="result_list">
                                     <thead id="thead1">
                                     <tr class="title_hover">
-                                        <th style="width: 10%">
+                                        <th style="width: 8%">
                                             <input type="checkbox" id="select_all">
                                         </th>
                                         <!--<a href="#" onclick="$.sortTable.sort('result_list',0)"><th style="width: 15%">卫星</th></a>-->
                                         <th style="width: 15%" onclick="$.sortTable.sort('result_list',1)">卫星</th>
                                         <th style="width: 15%" onclick="$.sortTable.sort('result_list',2)">传感器</th>
-                                        <th style="width: 25%" onclick="$.sortTable.sort('result_list',3)">采集时间</th>
+                                        <th style="width: 22%" onclick="$.sortTable.sort('result_list',3)">采集时间</th>
                                         <th style="width: 20%" onclick="$.sortTable.sort('result_list',4)">分辨率(m)</th>
-                                        <th style="width: 15%" onclick="$.sortTable.sort('result_list',5)">云量(%)</th>
+                                        <th style="width: 20%" onclick="$.sortTable.sort('result_list',5)">云量(%)</th>
                                     </tr>
                                     </thead>
                                     <tbody id="TbData"></tbody>
@@ -295,31 +279,53 @@
         }
 
     });
-
-    var tranfer_cart=[];//前台记录的选择加入购物车的产品
-    var length;
-    function SendFormSubmit(){
-        var isChosen=false;
-        var currentUser ="${currentUser}";
-        if(currentUser == ""){
-            alert("请登陆");
-            window.location.href="/login";
+    //var length;
+	
+	function SendFormSubmit(){
+    var isChosen=false;
+    var productIDList = [];
+    for(var i = 0; i < record.length; i++){
+        if($("#input"+ i).prop("checked")){
+            isChosen=true;
+            productIDList.push($("#input"+ i).val())
         }
 
-        for(var i = 0; i < length; i++){
-            if($("#input"+ i).prop("checked")){
-                isChosen=true;
-                tranfer_cart.push($("#input"+ i).val());
-            }
-        }
-        if(!isChosen){
+    }
+
+
+    var currentUser ="${currentUser}";
+    if(currentUser == ""){//未登录
+        alert("请先登录！");
+        return false;
+    }
+    else{//已登录
+        if(!isChosen){//未选择产品
             alert("请选择要加入购物车的产品！");
             return false;
         }
-        else {
+        else {//
+            var temp = {
+                'productIDList': JSON.stringify(productIDList)
+            }
+            $.ajax({
+                url:"/product/insertIntoShoppingCart",
+                type:'POST',
+                data: temp,
+                dataType: 'text',
+                async:false,
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                success : function(data) {
+                    alert("加入购物车成功");
+                },
+                error : function(data) {
+                    alert("加入购物车失败，请重试");
+                }
+
+            });
             return true;
         }
     }
+	}
 
 </script>
 <!-- Holder.js for project development only -->

@@ -84,7 +84,6 @@ function SendFormOrder(){
             async:false,
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
             success : function(data) {
-                alert(data[0]);
                 var index = 0;
                 var html="";
 

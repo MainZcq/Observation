@@ -65,7 +65,7 @@
                 </div>
                 <div class="btn2">
                     <!--<form class="btn2" id="form4" name="form4" onSubmit="return SendFormCart2()">-->
-                    <button type="submit" class="btn btn-danger collapse_btn btn2" id="delete_product"
+                    <button type="button" class="btn btn-danger collapse_btn btn2" id="delete_product"
                             style="margin-left: 20px" onclick="SendFormCart2()">删除
                     </button>
                     <!--</form>-->
