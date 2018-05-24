@@ -118,7 +118,7 @@ public class LoginController {
     //自动入库
     @Autowired
     private ProductService productService;
-    @Scheduled(cron= "0 0 17 * * ?")
+    @Scheduled(cron= "0 22 15 * * ?")
     public void LoadData(){
         Date d = new Date();
         List<AllType> allTypeList = new ArrayList<AllType>();

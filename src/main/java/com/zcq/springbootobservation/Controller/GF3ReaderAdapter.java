@@ -40,7 +40,7 @@ public class GF3ReaderAdapter implements ReaderAdapter  {
             allType.setRightBottomLat(gf3.getBottomRightLat());
             allType.setRightBottomLng(gf3.getBottomRightLng());
             allType.setAddress(path);
-            System.out.println("productID: "+allType.getAddress());
+            //System.out.println("productID: "+allType.getAddress());
 
 
 

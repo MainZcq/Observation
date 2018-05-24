@@ -50,7 +50,7 @@ public class GF124ReaderAdapter implements ReaderAdapter  {
             allType.setRightBottomLng(gf2.getBottomRightLongitude());
 
             allType.setAddress(path);
-            System.out.println("数据地址: "+allType.getAddress());
+            //System.out.println("数据地址: "+allType.getAddress());
 
 
 

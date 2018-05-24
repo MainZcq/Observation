@@ -44,6 +44,7 @@ public class DataScanner{
                         break circle;
                     }
                 path = tar.getAbsolutePath();
+                path = path.replaceAll("\\\\", "/");
                 System.out.println("正在解压并入库： "+path);
                 unCompressArchiveGz(Gzpath);
                 //扫描.xml
@@ -112,9 +113,9 @@ public class DataScanner{
                     }
 
                 }
-                System.out.println("清空前al的size为： "+al.size());
+                //System.out.println("清空前al的size为： "+al.size());
                 al.clear();
-                System.out.println("清空前al的size为： "+al.size());
+                //System.out.println("清空前al的size为： "+al.size());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -163,32 +164,6 @@ public class DataScanner{
             }
         }
     }
-    /*public static void readZipFile(String file) throws Exception {
-        ZipFile zf = new ZipFile(file);
-        InputStream in = new BufferedInputStream(new FileInputStream(file));
-        ZipInputStream zin = new ZipInputStream(in);
-        ZipEntry ze;
-        while ((ze = zin.getNextEntry()) != null) {
-            if (ze.isDirectory()) {
-            } else {
-                System.err.println("file - " + ze.getName() + " : "
-                        + ze.getSize() + " bytes");
-                long size = ze.getSize();
-                if (size > 0) {
-                    BufferedReader br = new BufferedReader(
-                            new InputStreamReader(zf.getInputStream(ze)));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        System.out.println(line);
-                    }
-                    br.close();
-                }
-                System.out.println();
-            }
-        }
-        zin.closeEntry();
-    }*/
-
 
     /**
      * 解压

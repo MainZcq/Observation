@@ -15,6 +15,24 @@ public class OrderType {
     private String produceTime;
     private String orderName;
     private String orderIntro;
+    private String address;
+    private String orderTime;
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getSceneID() {
         return sceneID;

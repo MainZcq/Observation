@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zcq.springbootobservation.Entity.AllType;
 import com.zcq.springbootobservation.Entity.OrderType;
+import com.zcq.springbootobservation.Entity.ShoppingCartType;
 import com.zcq.springbootobservation.Service.OrderService;
 import com.zcq.springbootobservation.Service.ProductService;
+import com.zcq.springbootobservation.Service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,12 +45,18 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ShoppingCartService shoppingCartService;
     @RequestMapping(value="/orderList")
-    public void getOrderList(HttpSession session,HttpServletResponse response, Model model,String test){
+    public void getOrderList(HttpSession session,HttpServletResponse response, Model model,String orderName,String orderIntro){
         String userName = (String)session.getAttribute(SESSION_KEY);
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        //List<OrderType> tempList = orderService.getRecordBySevField(orderName,orderIntro,userName,sdf.format(d));
         List<OrderType> tempList = orderService.getListByUserId(userName);
-        System.out.println(test);
-        model.addAttribute("orderList", tempList);
         String str = "";
         ObjectMapper x = new ObjectMapper();
 
@@ -56,7 +65,6 @@ public class OrderController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
 
         try {
             response.setContentType("text/xml;charset=UTF-8");
@@ -68,6 +76,8 @@ public class OrderController {
         }
     }
 
+
+
     @RequestMapping("/order")
     public String order(HttpSession session,Model model){
 
@@ -76,10 +86,11 @@ public class OrderController {
         List<OrderType> tempList = orderService.getListByUserId(userName);
 
         model.addAttribute("currentUser",userName);
-        model.addAttribute("CurrentUserOrderList", tempList);
+        //model.addAttribute("CurrentUserOrderList", tempList);
         return "order";
     }
 
+    //订单名称确认页面
     @RequestMapping("/orderInfo")
     public String orderInfo(HttpSession session,Model model){
 
@@ -132,6 +143,7 @@ public class OrderController {
     public void getorderConfirm(String productIDList,String orderName, String orderIntro,HttpSession session, HttpServletResponse response)
     {
 
+        ShoppingCartType shoppingCartType = new ShoppingCartType();
         String userName = (String)session.getAttribute(SESSION_KEY);
         List<String> orderIdList = new ArrayList<>();
         //如果当前没有用户登陆则拒绝入库
@@ -161,6 +173,10 @@ public class OrderController {
                 int MaxOrderId = 0;
                 try {
                     OrderType temp = orderService.getMaxIdRecord();
+                    //从购物车中删除相关订单
+                    shoppingCartType.setProductID(productID.get(i));
+                    shoppingCartType.setUserName(userName);
+                    shoppingCartService.deleteRocords(shoppingCartType);
                     MaxOrderId = Integer.parseInt(temp.getOrderId());
                     MaxOrderId++;
                 } catch (NumberFormatException e) {
@@ -169,10 +185,16 @@ public class OrderController {
                 //Object userName = session.getAttribute(WebSecurityConfig.SESSION_KEY);
                 String CurrentId = String.valueOf(MaxOrderId);
                 System.out.println("新订单编号" + CurrentId);
+                //订购时间
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                System.out.println("当前时间：" + sdf.format(d));
 
+                //编号
                 orderIdList.add(CurrentId);
 
                 OrderType orderType = new OrderType();
+                orderType.setOrderTime(sdf.format(d));
                 orderType.setOrderId(CurrentId);
                 orderType.setProductID(productID.get(i));
                 orderType.setUsername(userName);

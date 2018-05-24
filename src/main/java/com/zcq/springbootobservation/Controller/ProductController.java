@@ -274,17 +274,13 @@ public class ProductController {
         while(m1.find()) {
 
             //如果当前订单已经在表中则跳过
+            boolean flag = false;
             if(!shoppingCartTypes.isEmpty()) {
                 for (int i = 0; i < shoppingCartTypes.size(); i++)
                     if (shoppingCartTypes.get(i).getProductID().equals(m1.group(1)))
-                        continue;
-                    else{
-                        shoppingCartType.setProductID(m1.group(1));
-                        shoppingCartType.setUserName(userName);
-                        shoppingCartService.insertIntoShoppingCart(shoppingCartType);
-                    }
+                        flag = true;
             }
-            else {
+            if(shoppingCartTypes.isEmpty() || flag == false) {
                 shoppingCartType.setProductID(m1.group(1));
                 shoppingCartType.setUserName(userName);
                 shoppingCartService.insertIntoShoppingCart(shoppingCartType);
